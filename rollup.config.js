@@ -1,5 +1,8 @@
+import * as pkg from './package.json';
+
 import babel from 'rollup-plugin-babel';
 import eslint from 'rollup-plugin-eslint';
+import replace from 'rollup-plugin-replace';
 
 export default {
     input: 'src/Minim2D.js',
@@ -7,7 +10,10 @@ export default {
         babel({
             exclude: 'node_modules/**' // only transpile our source code
         }),
-        eslint()
+        eslint(),
+        replace({
+            VERSION: pkg.version
+        })
     ],
     output: [
         {

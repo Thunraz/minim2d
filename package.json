@@ -15,7 +15,8 @@
     "build-modular-uglify": "rollup -c && uglifyjs build/minim2d.module.js -cm --preamble \"// https://github.com/Thunraz/minim2d/raw/master/LICENSE\" > build/minim2d.module.min.js",
     "dev": "concurrently --names \"ROLLUP,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c -w -m inline\" \"serve -l 8080\"",
     "start": "npm run dev",
-    "lint": "eslint src"
+    "lint": "eslint src",
+    "vs": "code ."
   },
   "author": "Thunraz <thunraz@thunraz.com>",
   "license": "MIT",

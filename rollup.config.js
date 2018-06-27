@@ -1,11 +1,13 @@
 import babel from 'rollup-plugin-babel';
+import eslint from 'rollup-plugin-eslint';
 
 export default {
     input: 'src/Minim2D.js',
     plugins: [
         babel({
             exclude: 'node_modules/**' // only transpile our source code
-        })
+        }),
+        eslint()
     ],
     output: [
         {

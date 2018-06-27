@@ -38,7 +38,7 @@ export class Game {
         let deltaT = timestamp - lastFrameTime;
         lastFrameTime = timestamp;
 
-        if(this.controls.enabled) {
+        if(!this.controls.paused) {
             this.controls.update();
 
             this.update(deltaT / 1000);

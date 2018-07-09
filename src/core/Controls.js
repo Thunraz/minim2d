@@ -1,11 +1,19 @@
 export class Controls {
     /**
      * Initializes the controls.
-     * @param {Object} customKeyCodes (optional) custom key codes to add to the keyCodes object
-     * @param {Object} customStates (optional) custom states to add to the states object
+     * @param {Object} options Valid options:
+     * * customKeyCodes: custom key codes to add to the keyCodes object
+     * * customStates:   custom states to add to the states object
      */
-    constructor(customKeyCodes, customStates) {
+    constructor(options) {
         this.paused = true;
+
+        // Make sure we have some default options
+        options = options || {
+            customKeyCodes: { },
+            customStates: { }
+            
+        };
 
         // Add a couple of event listeners
         document.addEventListener('pointerlockchange', () => { this.onPointerLockChange(); }, false);
@@ -23,8 +31,8 @@ export class Controls {
         this.blocker         = document.getElementById('blocker');
         this.element         = document.body;
 
-        this.noticeContainer.addEventListener('click', () => {
-            this.noticeContainer.style.display = 'none';
+        this.element.addEventListener('click', () => {
+            //this.noticeContainer.style.display = 'none';
             this.element.requestPointerLock();
         }, false );
 
@@ -48,7 +56,7 @@ export class Controls {
             65: 'left',  // A
             68: 'right' // D
         };
-        this.keyCodes = Object.assign(keyCodes, customKeyCodes);
+        this.keyCodes = Object.assign(keyCodes, options.customKeyCodes);
 
         let states = {
             // Mouse
@@ -66,7 +74,7 @@ export class Controls {
             deltaX              : 0.0,
             deltaY              : 0.0
         };
-        this.states = Object.assign(states, customStates);
+        this.states = Object.assign(states, options.customStates);
     }
 
     /**

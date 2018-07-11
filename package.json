@@ -16,7 +16,10 @@
     "dev": "concurrently --names \"ROLLUP,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c -w -m inline\" \"serve -l 8080\"",
     "start": "npm run dev",
     "lint": "eslint src",
-    "vs": "code ."
+    "vs": "code .",
+    "travis": "npm run lint && npm test",
+    "test": "npm run build-test && qunit test/unit/minim2d.source.unit.js",
+    "build-test": "rollup -c test/rollup.unit.config.js"
   },
   "author": "Thunraz <thunraz@thunraz.com>",
   "license": "MIT",
@@ -24,6 +27,7 @@
     "babel-core": "^6.26.3",
     "concurrently": "^3.6.0",
     "eslint": "^5.1.0",
+    "qunit": "^2.6.1",
     "rollup": "^0.62.0",
     "rollup-plugin-babel": "^3.0.7",
     "rollup-plugin-eslint": "^4.0.0",

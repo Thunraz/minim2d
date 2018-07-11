@@ -4,11 +4,13 @@ const CIRCLE = Math.PI * 2;
 
 export class Object2D {
     /**
-     * 
+     * Creates a new Object2D instance
+     * @param {Object} options Options to initialize this instance with
      */
-    constructor() {
-        let position = new Vector2();
-        let rotation = 0.0;
+    constructor(options) {
+        options = options || { };
+        let position = options.position || new Vector2();
+        let rotation = options.rotation || 0.0;
 
         Object.defineProperties(this, {
             position: {

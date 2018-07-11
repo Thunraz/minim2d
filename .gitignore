@@ -1,4 +1,15 @@
 build/
+test/unit/minim2d.*.unit.js
+
+.DS_Store
+*.swp
+.project
+node_modules
+.idea/
+.vscode/
+npm-debug.log
+.jshintrc
+.vs/
 
 # Created by https://www.gitignore.io/api/node,windows,osx,linux,visualstudiocode
 

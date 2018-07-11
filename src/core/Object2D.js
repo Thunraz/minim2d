@@ -34,4 +34,22 @@ export class Object2D {
     rotate(angle) {
         this.rotation = (this.rotation + angle) % CIRCLE;
     }
+
+    /**
+     * 
+     * @param {Number|Vector2} x delta x to move by or a Vector2 instance
+     * @param {Number} y delta y to move by (optional if x is Vector2)
+     * @returns {void}
+     */
+    move(x, y) {
+        let vec;
+        
+        if(x instanceof Vector2) {
+            vec = x;
+        } else {
+            vec = new Vector2(x, y);
+        }
+
+        this.position = this.position.add(vec);
+    }
 }

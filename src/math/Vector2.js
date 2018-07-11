@@ -20,6 +20,15 @@ export class Vector2 {
     }
 
     /**
+     * Adds another vector and returns the result.
+     * @param {Vector2} v another Vector2
+     * @returns {Vector2} addition result
+     */
+    add(v) {
+        return new Vector2(this.x + v.x, this.y + v.y);
+    }
+
+    /**
      * Calculates the dot product.
      * @param {Vector2} v another Vector2
      * @returns {Number} dot product result

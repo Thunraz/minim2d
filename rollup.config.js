@@ -1,7 +1,7 @@
 import * as pkg from './package.json';
 
 import babel from 'rollup-plugin-babel';
-import eslint from 'rollup-plugin-eslint';
+import { eslint  } from 'rollup-plugin-eslint';
 import replace from 'rollup-plugin-replace';
 
 export default {

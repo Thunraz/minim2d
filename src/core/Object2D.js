@@ -1,13 +1,17 @@
+import { Drawable } from './Drawable';
 import { Vector2 } from '../math/Vector2';
 
 const CIRCLE = Math.PI * 2;
+const _objects = [ ];
 
-export class Object2D {
+export class Object2D extends Drawable {
     /**
      * Creates a new Object2D instance
      * @param {Object} options Options to initialize this instance with
      */
     constructor(options) {
+        super();
+
         options = options || { };
         let position = options.position || new Vector2();
         let rotation = options.position || 0.0;
@@ -22,6 +26,51 @@ export class Object2D {
                 enumerable: true,
                 value: rotation,
                 writable: true
+            }
+        });
+    }
+
+    /**
+     * Adds a new Drawable to the object.
+     * @param {Drawable} drawable The drawable to add to the Object
+     * @returns {void}
+     */
+    add(drawable) {
+        if(drawable instanceof Drawable) {
+            _objects.push(drawable);
+        } else {
+            console.error('Can\'t add object. Must be an instance or derivative of Drawable.');
+        }
+    }
+
+    /**
+     * Updates this instance.
+     * @param {Number} dt Delta time
+     * @returns {void}
+     */
+    update(dt) {
+        _objects.forEach((value) => {
+            if(typeof value.update === 'function') {
+                value.update(dt);
+            }
+        });
+    }
+
+    /**
+     * Draws this Object2D on the screen
+     * @param {Vector2} origin (optional) the origin to draw from
+     * @returns {void}
+     */
+    draw(origin) {
+        super.draw();
+
+        if(!origin) {
+            origin = new Vector2(0);
+        }
+
+        _objects.forEach((obj) => {
+            if(typeof obj.draw === 'function') {
+                obj.draw(origin + this.position);
             }
         });
     }

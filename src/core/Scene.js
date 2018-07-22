@@ -1,4 +1,4 @@
-import { Object2D } from './Object2D';
+import { Drawable } from './Drawable';
 
 const _objects = [];
 
@@ -11,16 +11,15 @@ export class Scene {
     }
 
     /**
-     * Adds a new Object2D to the scene.
-     * @param {Object2D} obj yo
+     * Adds a new Drawable to the scene.
+     * @param {Drawable} drawable The drawable to add to the Object
      * @returns {void}
      */
-    add(obj) {
-        if(obj instanceof Object2D) {
-            _objects.push(obj);
+    add(drawable) {
+        if(drawable instanceof Drawable) {
+            _objects.push(drawable);
         } else {
-            /* eslint-disable-next-line */
-            console.error.log('Can\'t add object. Must be an instance or derivative of Object2D.');
+            console.error('Can\'t add object. Must be an instance or derivative of Drawable.');
         }
     }
 
@@ -41,7 +40,9 @@ export class Scene {
      */
     draw() {
         _objects.forEach((value) => {
-            value.draw();
+            if(typeof value.draw === 'function') {
+                value.draw();
+            }
         });
     }
 }

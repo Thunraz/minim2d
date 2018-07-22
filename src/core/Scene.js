@@ -16,6 +16,32 @@ export class Scene {
      * @returns {void}
      */
     add(obj) {
-        _objects.push(obj);
+        if(obj instanceof Object2D) {
+            _objects.push(obj);
+        } else {
+            /* eslint-disable-next-line */
+            console.error.log('Can\'t add object. Must be an instance or derivative of Object2D.');
+        }
+    }
+
+    /**
+     * Performs object updates before drawing.
+     * @param {Number} dt elapsed time since last frame
+     * @returns {void}
+     */
+    update(dt) {
+        _objects.forEach((value) => {
+            value.update(dt);
+        });
+    }
+
+    /**
+     * Draws the scene onto the canvas.
+     * @returns {void}
+     */
+    draw() {
+        _objects.forEach((value) => {
+            value.draw();
+        });
     }
 }

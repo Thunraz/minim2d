@@ -1,4 +1,5 @@
 export { Bitmap   } from './core/Bitmap';
+export { Drawable } from './core/Drawable';
 export { Game     } from './core/Game';
 export { Object2D } from './core/Object2D';
 export { Scene    } from './core/Scene';

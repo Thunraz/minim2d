@@ -7,7 +7,6 @@ let events = {
 
 export class Game {
     /**
-     * 
      * @param {HTMLElement} container (optional) the container to inject the game canvas into.
      * @param {Object} controlsOptions (optional) options for the @see Controls controls 
      * If not set, the canvas will be injected to body. If container is canvas, it will be used instead.
@@ -16,12 +15,16 @@ export class Game {
         if(container === undefined) {
             // Create canvas and append it to body
             this.canvas = document.createElement('canvas');
+            this.canvas.height = 300;
+            this.canvas.width  = 300;
             document.body.appendChild(this.canvas);
         } else if(container.tagName === 'CANVAS') {
             // Canvas has already been created by the user - use it instead
             this.canvas = container;
         } else {
             this.canvas = document.createElement('canvas');
+            this.canvas.height = 300;
+            this.canvas.width  = 300;
             container.appendChild(this.canvas);
         }
         

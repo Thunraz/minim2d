@@ -22,7 +22,7 @@
         "no-var": "error",
         "no-tabs": "error",
         "indent": ["error", 4],
-        "no-console": "warn",
+        "no-console": ["warn", { "allow": ["warn", "error"] }],
         "no-duplicate-imports": "error",
         "sort-imports": "error",
         "valid-jsdoc": "warn",

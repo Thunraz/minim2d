@@ -1,4 +1,6 @@
-export class Bitmap{
+import { Drawable } from './Drawable';
+
+export class Bitmap extends Drawable {
     /**
      * Creates a new Bitmap
      * @param {String} src URL to the image
@@ -7,6 +9,8 @@ export class Bitmap{
      * @param {Number} numberOfFrames (optional) the number of frames the bitmap has. Default is 0.
      */
     constructor(src, width, height, numberOfFrames) {
+        super();
+        
         this.image = new Image(width, height);
         this.image.src = src;
 

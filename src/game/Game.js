@@ -1,7 +1,9 @@
 import { Controls } from '../input/Controls';
-import { Scene } from './Scene';
 
 let lastFrameTime = 0;
+let events = {
+    handleControls: new Event('handleControls')
+};
 
 export class Game {
     /**
@@ -42,6 +44,7 @@ export class Game {
 
         if(!this.controls.paused) {
             this.controls.update();
+            window.dispatchEvent(events.handleControls);
 
             this.update(deltaT / 1000);
             this.draw();
@@ -52,6 +55,15 @@ export class Game {
         this.frames++;
     
         requestAnimationFrame((t) => this.gameLoop(t));
+    }
+
+    /**
+     * Sets the current scene.
+     * @param {Scene} scene The scene to change to.
+     * @returns {void}
+     */
+    setScene(scene) {
+        this.currentScene = scene;
     }
 
     /**
@@ -73,13 +85,5 @@ export class Game {
         if(this.currentScene !== null) {
             this.currentScene.draw();
         }
-    }
-
-    /**
-     * 
-     * @param {Scene} scene 
-     */
-    setScene(scene) {
-        this.currentScene = scene;
     }
 }

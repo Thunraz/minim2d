@@ -58,11 +58,12 @@ export class Object2D extends Drawable {
 
     /**
      * Draws this Object2D on the screen
+     * @param {CanvasRenderingContext2D} context The 2D rendering context
      * @param {Vector2} origin (optional) the origin to draw from
      * @returns {void}
      */
-    draw(origin) {
-        super.draw();
+    draw(context, origin) {
+        super.draw(context, origin);
 
         if(!origin) {
             origin = new Vector2(0);
@@ -70,7 +71,7 @@ export class Object2D extends Drawable {
 
         _objects.forEach((obj) => {
             if(typeof obj.draw === 'function') {
-                obj.draw(origin + this.position);
+                obj.draw(context, origin.add(this.position));
             }
         });
     }

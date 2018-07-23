@@ -82,8 +82,10 @@ export class Game {
      * @returns {void}
      */
     draw() {
+        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        
         if(this.currentScene !== null) {
-            this.currentScene.draw();
+            this.currentScene.draw(this.context);
         }
     }
 }

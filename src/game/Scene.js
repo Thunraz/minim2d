@@ -1,4 +1,4 @@
-import { Object2D } from './Object2D';
+import { Object2D } from '../core/Object2D';
 
 const _objects = [];
 
@@ -12,7 +12,7 @@ export class Scene {
 
     /**
      * Adds a new Object2D to the scene.
-     * @param {Object2D} obj yo
+     * @param {Object2D} obj the object to add
      * @returns {void}
      */
     add(obj) {

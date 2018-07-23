@@ -1,7 +1,7 @@
 export { Bitmap   } from './core/Bitmap';
-export { Game     } from './core/Game';
+export { Game     } from './game/Game';
 export { Object2D } from './core/Object2D';
-export { Scene    } from './core/Scene';
+export { Scene    } from './game/Scene';
 export { Vector2  } from './math/Vector2';
 
 let col1 = (opacity) => { return `rgba( 48, 232, 191, ${opacity})`; };

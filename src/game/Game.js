@@ -1,4 +1,5 @@
-import { Controls } from './Controls';
+import { Controls } from '../input/Controls';
+import { Scene } from './Scene';
 
 let lastFrameTime = 0;
 
@@ -72,5 +73,13 @@ export class Game {
         if(this.currentScene !== null) {
             this.currentScene.draw();
         }
+    }
+
+    /**
+     * 
+     * @param {Scene} scene 
+     */
+    setScene(scene) {
+        this.currentScene = scene;
     }
 }

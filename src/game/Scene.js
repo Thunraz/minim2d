@@ -36,12 +36,13 @@ export class Scene {
 
     /**
      * Draws the scene onto the canvas.
+     * @param {CanvasRenderingContext2D} context The 2D rendering context
      * @returns {void}
      */
-    draw() {
+    draw(context) {
         _objects.forEach((value) => {
             if(typeof value.draw === 'function') {
-                value.draw();
+                value.draw(context);
             }
         });
     }

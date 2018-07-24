@@ -1,3 +1,4 @@
+import { Object2D } from '../core/Object2D';
 import { Vector2 } from '../math/Vector2';
 
 export class Camera {
@@ -11,10 +12,10 @@ export class Camera {
 
     /**
      * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {Drawable} drawable The drawable to render
+     * @param {Object2D} object The object to render
      * @returns {void}
      */
-    render(context, drawable) {
-        drawable.draw(context, this.position);
+    render(context, object) {
+        object.draw(context, this);
     }
 }

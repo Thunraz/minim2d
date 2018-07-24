@@ -1,23 +1,25 @@
-import { Drawable } from './Drawable';
+import { Object2D } from './Object2D';
 import { Vector2 } from '../math/Vector2';
 
-export class Bitmap extends Drawable {
+export class Bitmap extends Object2D {
     /**
      * Creates a new Bitmap
-     * @param {String} src URL to the image
-     * @param {Number} width Bitmap width
-     * @param {Number} height Bitmap height
-     * @param {Number} scale Scale factor
-     * @param {Number} numberOfFrames (optional) the number of frames the bitmap has. Default is 0.
+     * @param {String}  src URL to the image
+     * @param {Number}  width Bitmap width
+     * @param {Number}  height Bitmap height
+     * @param {Number}  scale Scale factor
+     * @param {Number}  numberOfFrames (optional) the number of frames the bitmap has. Default is 0.
      * @param {Boolean} fixed (optional) if true, draw bitmap onto screen coordinates
      */
     constructor(src, width, height, scale, numberOfFrames, fixed) {
-        super(width, height);
+        super();
         
         this.image = new Image(width, height);
         this.image.src = src;
 
-        this.scale = scale;
+        this.width  = width;
+        this.height = height;
+        this.scale  = scale;
 
         this.numberOfFrames = numberOfFrames || 0;
         this.currentFrame = 0;
@@ -28,24 +30,31 @@ export class Bitmap extends Drawable {
     /**
      * Draw the bitmap onto the canvas.
      * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {Vector2} origin (optional) the origin to draw from
+     * @param {Camera} camera The rendering camera
+     * @param {Vector2} position (optional) offset position
+     * @param {Vector2} rotation (optional) rotation
      * @returns {void}
      */
-    draw(context, origin) {
-        super.draw(context, origin);
-
-        if(!origin) {
-            origin = new Vector2(0);
-        }
+    draw(context, camera, position, rotation) {
+        position = position || new Vector2(0);
+        rotation = rotation || 0;
+        
+        let drawPosition = this.position.add(position);
+        super.draw(context, camera, drawPosition);
 
         context.save();
 
         if(this.fixed) {
-            context.translate(origin.x * this.scale, origin.y * this.scale);
+            context.translate(drawPosition.x * this.scale, drawPosition.y * this.scale);
         } else {
-            // TODO Implement camera
-            context.translate(origin.x * this.scale, origin.y * this.scale);
+            //console.log('drawing @', camera.position, drawPosition);
+            context.translate(
+                (drawPosition.x - camera.position.x) * this.scale,
+                (drawPosition.y - camera.position.y) * this.scale
+            );
         }
+
+        context.rotate(this.rotation + rotation);
 
         context.drawImage(
             this.image,

@@ -14,8 +14,8 @@ class Square extends Minim2D.Object2D {
         this.add(this.bitmap);
         this.timer = 0.0;
         
-        this.position.x = 100;
-        this.position.y = 100;
+        this.position.x = 5;
+        //this.position.y = 5;
     }
 
     update(dt) {
@@ -23,16 +23,10 @@ class Square extends Minim2D.Object2D {
 
         this.timer += dt;
 
-        this.position.x = 100 +  Math.cos(this.timer) * 10;
-        this.position.y = 100 +  Math.sin(this.timer) * 10;
-    }
+        this.position.x = 150 +  Math.cos(this.timer) * 100;
+        this.position.y = 150 +  Math.sin(this.timer) * 100;
 
-    draw(context, origin) {
-        if(!origin) {
-            origin = new Minim2D.Vector2(0);
-        }
-
-        super.draw(context, this.position.add(origin));
+        this.rotation = Math.sin(this.timer * dt * 100) * 10;
     }
 }
 

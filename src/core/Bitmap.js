@@ -12,13 +12,10 @@ export class Bitmap extends Drawable {
      * @param {Boolean} fixed (optional) if true, draw bitmap onto screen coordinates
      */
     constructor(src, width, height, scale, numberOfFrames, fixed) {
-        super();
+        super(width, height);
         
         this.image = new Image(width, height);
         this.image.src = src;
-        
-        this.width = width;
-        this.height = height;
 
         this.scale = scale;
 

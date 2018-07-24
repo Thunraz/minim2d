@@ -35,14 +35,15 @@ export class Scene {
     }
 
     /**
-     * Draws the scene onto the canvas.
+     * Renders the scene onto the canvas.
      * @param {CanvasRenderingContext2D} context The 2D rendering context
+     * @param {Camera} camera The camera used to render the scene
      * @returns {void}
      */
-    draw(context) {
-        _objects.forEach((value) => {
-            if(typeof value.draw === 'function') {
-                value.draw(context);
+    render(context, camera) {
+        _objects.forEach((drawable) => {
+            if(drawable instanceof Drawable) {
+                camera.render(context, drawable);
             }
         });
     }

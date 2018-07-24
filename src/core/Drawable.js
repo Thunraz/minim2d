@@ -1,6 +1,12 @@
-import { Vector2 } from '../math/Vector2';
-
 export class Drawable {
+    /**
+     * @param {Number} width Drawable width
+     * @param {Number} height Drawable height
+     */
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
 
     /* eslint-disable no-unused-vars */
     /**

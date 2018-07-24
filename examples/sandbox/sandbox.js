@@ -38,8 +38,9 @@ class Square extends Minim2D.Object2D {
 
 
 (function() {
-    let game = new Minim2D.Game(document.getElementById('g'));
-    let scene = new Minim2D.Scene();
+    let camera = new Minim2D.Camera();
+    let game   = new Minim2D.Game(camera, document.getElementById('g'));
+    let scene  = new Minim2D.Scene();
     game.setScene(scene);
     game.gameLoop();
 

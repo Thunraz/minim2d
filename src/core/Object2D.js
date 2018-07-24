@@ -1,17 +1,13 @@
-import { Drawable } from './Drawable';
 import { Vector2 } from '../math/Vector2';
 
 const CIRCLE = Math.PI * 2;
-const _objects = [ ];
 
-export class Object2D extends Drawable {
+export class Object2D {
     /**
      * Creates a new Object2D instance
      * @param {Object} options Options to initialize this instance with
      */
     constructor(options) {
-        super();
-
         options = options || { };
         let position = options.position || new Vector2();
         let rotation = options.position || 0.0;
@@ -28,16 +24,18 @@ export class Object2D extends Drawable {
                 writable: true
             }
         });
+
+        this.objects = [];
     }
 
     /**
-     * Adds a new Drawable to the object.
-     * @param {Drawable} drawable The drawable to add to the Object
+     * Adds a new Object2D to the object.
+     * @param {Object2D} object The object to add as subobject
      * @returns {void}
      */
-    add(drawable) {
-        if(drawable instanceof Drawable) {
-            _objects.push(drawable);
+    add(object) {
+        if(object instanceof Object2D) {
+            this.objects.push(object);
         } else {
             console.error('Can\'t add object. Must be an instance or derivative of Drawable.');
         }
@@ -49,7 +47,7 @@ export class Object2D extends Drawable {
      * @returns {void}
      */
     update(dt) {
-        _objects.forEach((value) => {
+        this.objects.forEach((value) => {
             if(typeof value.update === 'function') {
                 value.update(dt);
             }
@@ -59,19 +57,18 @@ export class Object2D extends Drawable {
     /**
      * Draws this Object2D on the screen
      * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {Vector2} origin (optional) the origin to draw from
+     * @param {Camera} camera the camera used to render this object
+     * @param {Vector2} position (optional) offset position
+     * @param {Vector2} rotation (optional) rotation
      * @returns {void}
      */
-    draw(context, origin) {
-        super.draw(context, origin);
+    draw(context, camera, position, rotation) {
+        position = position || new Vector2(0);
+        rotation = rotation || 0;
 
-        if(!origin) {
-            origin = new Vector2(0);
-        }
-
-        _objects.forEach((obj) => {
+        this.objects.forEach((obj) => {
             if(typeof obj.draw === 'function') {
-                obj.draw(context, origin.add(this.position));
+                obj.draw(context, camera, this.position.add(position), this.rotation + rotation);
             }
         });
     }

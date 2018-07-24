@@ -1,4 +1,4 @@
-import { Drawable } from '../core/Drawable';
+import { Object2D } from '../core/Object2D';
 
 const _objects = [];
 
@@ -11,15 +11,15 @@ export class Scene {
     }
 
     /**
-     * Adds a new Drawable to the scene.
-     * @param {Drawable} drawable The drawable to add to the Object
+     * Adds a new Object2D to the scene.
+     * @param {Object2D} object The drawable to add to the Object
      * @returns {void}
      */
-    add(drawable) {
-        if(drawable instanceof Drawable) {
-            _objects.push(drawable);
+    add(object) {
+        if(object instanceof Object2D) {
+            _objects.push(object);
         } else {
-            console.error('Can\'t add object. Must be an instance or derivative of Drawable.');
+            console.error('Can\'t add object. Must be an instance or derivative of Object2D.');
         }
     }
 
@@ -41,9 +41,9 @@ export class Scene {
      * @returns {void}
      */
     render(context, camera) {
-        _objects.forEach((drawable) => {
-            if(drawable instanceof Drawable) {
-                camera.render(context, drawable);
+        _objects.forEach((object) => {
+            if(object instanceof Object2D) {
+                camera.render(context, object);
             }
         });
     }

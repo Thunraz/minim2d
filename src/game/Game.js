@@ -1,3 +1,4 @@
+import { Camera } from './Camera';
 import { Controls } from '../input/Controls';
 
 let lastFrameTime = 0;
@@ -7,11 +8,18 @@ let events = {
 
 export class Game {
     /**
+     * @param {Camera} camera The camera used to render the game
      * @param {HTMLElement} container (optional) the container to inject the game canvas into.
      * @param {Object} controlsOptions (optional) options for the @see Controls controls 
      * If not set, the canvas will be injected to body. If container is canvas, it will be used instead.
      */
-    constructor(container, controlsOptions) {
+    constructor(camera, container, controlsOptions) {
+        if(!camera || !(camera instanceof Camera)) {
+            throw Error('Camera has not been specified');
+        } else {
+            this.camera = camera;
+        }
+
         if(container === undefined) {
             // Create canvas and append it to body
             this.canvas = document.createElement('canvas');
@@ -50,9 +58,9 @@ export class Game {
             window.dispatchEvent(events.handleControls);
 
             this.update(deltaT / 1000);
-            this.draw();
+            this.render();
         } else if(this.frames % 10 === 0) {
-            this.draw();
+            this.render();
         }
 
         this.frames++;
@@ -84,11 +92,11 @@ export class Game {
      * Draws the scene onto the canvas.
      * @returns {void}
      */
-    draw() {
+    render() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         if(this.currentScene !== null) {
-            this.currentScene.draw(this.context);
+            this.currentScene.draw(this.context, this.camera);
         }
     }
 }

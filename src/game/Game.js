@@ -78,7 +78,7 @@ export class Game {
     }
 
     /**
-     * Performs object updates before drawing.
+     * Performs object updates before drawing. Should not be called directly.
      * @param {Number} dt elapsed time since last frame
      * @returns {void}
      */
@@ -89,14 +89,14 @@ export class Game {
     }
 
     /**
-     * Draws the scene onto the canvas.
+     * Renders the scene onto the canvas. Should not be called directly.
      * @returns {void}
      */
     render() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         if(this.currentScene !== null) {
-            this.currentScene.draw(this.context, this.camera);
+            this.currentScene.render(this.context, this.camera);
         }
     }
 }

@@ -51,10 +51,10 @@ export class Controls {
             68: 'right', // D
 
             // Support ZQSD (pour les amis français 🇫🇷)
-            87: 'up',    // W
+            90: 'up',    // Z
             83: 'down',  // S
-            65: 'left',  // A
-            68: 'right' // D
+            81: 'left',  // Q
+            68: 'right'  // D
         };
         this.keyCodes = Object.assign(keyCodes, options.customKeyCodes);
 

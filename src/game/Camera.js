@@ -1,4 +1,3 @@
-import { Object2D } from '../core/Object2D';
 import { Vector2 } from '../math/Vector2';
 
 export class Camera {

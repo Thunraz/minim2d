@@ -1,5 +1,4 @@
 import { Object2D } from './Object2D';
-import { Vector2 } from '../math/Vector2';
 
 export class Bitmap extends Object2D {
     /**

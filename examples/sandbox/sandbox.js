@@ -32,6 +32,10 @@ class Square extends Minim2D.Object2D {
     }
 }
 
+function handleControls(states) {
+    console.log(states);
+}
+
 
 (function() {
     window.camera = new Minim2D.Camera();
@@ -39,6 +43,8 @@ class Square extends Minim2D.Object2D {
     let scene  = new Minim2D.Scene();
     game.setScene(scene);
     game.gameLoop();
+
+    window.addEventListener('handleControls', (e) => handleControls(e.detail), false);
 
     let square = new Square();
     scene.add(square);

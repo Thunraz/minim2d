@@ -71,11 +71,19 @@ export class Controls {
             right               : false,
             deltaX              : 0.0,
             deltaY              : 0.0,
-            buttonTimeout       : buttonTimeout
+            buttonTimeout       : buttonTimeout,
+            resetButtonTimeout  : this.resetButtonTimeout
         };
         this.states = Object.assign(states, customStates);
+    }
 
-        this.maxbuttonTimeout = buttonTimeout;
+    /**
+     * Resets the button timeout
+     * @param {Number} maxButtonTimeout The value to reset the timeout to.
+     * @returns {void}
+     */
+    resetButtonTimeout(maxButtonTimeout) {
+        this.buttonTimeout += maxButtonTimeout;
     }
 
     /**

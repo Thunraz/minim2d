@@ -1,3 +1,4 @@
+/* global Minim2D */
 /* eslint-disable require-jsdoc */
 class Square extends Minim2D.Object2D {
     constructor() {

@@ -1,11 +1,6 @@
 import { Camera } from './Camera';
 import { Controls } from '../input/Controls';
 
-let lastFrameTime = 0;
-let events = {
-    handleControls: new Event('handleControls')
-};
-
 export class Game {
     /**
      * @param {Camera} camera The camera used to render the game
@@ -38,6 +33,7 @@ export class Game {
         
         this.context = this.canvas.getContext('2d');
         
+        this.lastFrameTime = 0;
         this.frames = 0;
         this.controls = new Controls(controlsOptions);
 
@@ -50,12 +46,12 @@ export class Game {
      * @returns {void}
      */
     gameLoop(timestamp) {
-        let deltaT = timestamp - lastFrameTime;
-        lastFrameTime = timestamp;
+        let deltaT = timestamp - this.lastFrameTime;
+        this.lastFrameTime = timestamp;
 
         if(!this.controls.paused) {
             this.controls.update();
-            window.dispatchEvent(events.handleControls);
+            window.dispatchEvent(new CustomEvent('handleControls', { detail: this.controls.states }));
 
             this.update(deltaT / 1000);
             this.render();

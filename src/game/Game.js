@@ -50,9 +50,6 @@ export class Game {
         this.lastFrameTime = timestamp;
 
         if(!this.controls.paused) {
-            this.controls.update();
-            window.dispatchEvent(new CustomEvent('handleControls', { detail: this.controls.states }));
-
             this.update(deltaT / 1000);
             this.render();
         } else if(this.frames % 10 === 0) {
@@ -79,6 +76,9 @@ export class Game {
      * @returns {void}
      */
     update(dt) {
+        this.controls.update(dt);
+        window.dispatchEvent(new CustomEvent('handleControls', { detail: this.controls.states }));
+        
         if(this.currentScene !== null) {
             this.currentScene.update(dt);
         }

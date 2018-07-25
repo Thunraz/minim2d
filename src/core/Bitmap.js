@@ -9,9 +9,8 @@ export class Bitmap extends Object2D {
      * @param {Number}  height Bitmap height
      * @param {Number}  scale Scale factor
      * @param {Number}  numberOfFrames (optional) the number of frames the bitmap has. Default is 0.
-     * @param {Boolean} fixed (optional) if true, draw bitmap onto screen coordinates
      */
-    constructor(src, width, height, scale, numberOfFrames, fixed) {
+    constructor(src, width, height, scale, numberOfFrames) {
         super();
         
         this.image = new Image(width, height);
@@ -23,8 +22,6 @@ export class Bitmap extends Object2D {
 
         this.numberOfFrames = numberOfFrames || 0;
         this.currentFrame = 0;
-
-        this.fixed = fixed;
     }
 
     /**
@@ -35,26 +32,22 @@ export class Bitmap extends Object2D {
      * @param {Vector2} rotation (optional) rotation
      * @returns {void}
      */
-    draw(context, camera, position, rotation) {
-        position = position || new Vector2(0);
-        rotation = rotation || 0;
-        
-        let drawPosition = this.position.add(position);
-        super.draw(context, camera, drawPosition);
-
+    draw(context, camera) {
         context.save();
 
         if(this.fixed) {
-            context.translate(drawPosition.x * this.scale, drawPosition.y * this.scale);
-        } else {
-            //console.log('drawing @', camera.position, drawPosition);
             context.translate(
-                (drawPosition.x - camera.position.x) * this.scale,
-                (drawPosition.y - camera.position.y) * this.scale
+                this.position.x * this.scale,
+                this.position.y * this.scale
+            );
+        } else {
+            context.translate(
+                (this.position.x - camera.position.x) * this.scale,
+                (this.position.y - camera.position.y) * this.scale
             );
         }
 
-        context.rotate(this.rotation + rotation);
+        context.rotate(this.rotation);
 
         context.drawImage(
             this.image,

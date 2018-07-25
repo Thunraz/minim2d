@@ -1,6 +1,7 @@
 import { Vector2 } from '../math/Vector2';
 
 const CIRCLE = Math.PI * 2;
+let lastID = 0;
 
 export class Object2D {
     /**
@@ -13,6 +14,7 @@ export class Object2D {
         let rotation = options.rotation || 0.0;
         let origin   = options.origin   || new Vector2();
         let fixed    = options.fixed    || false;
+        let zIndex   = options.zIndex   || 1;
 
         Object.defineProperties(this, {
             position: {
@@ -34,10 +36,16 @@ export class Object2D {
                 enumerable: true,
                 value: fixed,
                 writable: true
+            },
+            zIndex: {
+                enumerable: true,
+                value: zIndex,
+                writable: true
             }
         });
 
         this.objects = [];
+        this.id = lastID++;
     }
 
     /**
@@ -48,6 +56,12 @@ export class Object2D {
     add(object) {
         if(object instanceof Object2D) {
             this.objects.push(object);
+            this.objects.sort((a, b) => {
+                if(a.zIndex === b.zIndex) {
+                    return a.id > b.id;
+                }
+                return a.zIndex >= b.zIndex;
+            });
         } else {
             console.error('Can\'t add object. Must be an instance or derivative of Drawable.');
         }

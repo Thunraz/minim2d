@@ -11,6 +11,7 @@ export class Object2D {
         options = options || { };
         let position = options.position || new Vector2();
         let rotation = options.position || 0.0;
+        let fixed    = options.fixed    || false;
 
         Object.defineProperties(this, {
             position: {
@@ -21,6 +22,11 @@ export class Object2D {
             rotation: {
                 enumerable: true,
                 value: rotation,
+                writable: true
+            },
+            fixed: {
+                enumerable: true,
+                value: fixed,
                 writable: true
             }
         });
@@ -62,15 +68,23 @@ export class Object2D {
      * @param {Vector2} rotation (optional) rotation
      * @returns {void}
      */
-    draw(context, camera, position, rotation) {
-        position = position || new Vector2(0);
-        rotation = rotation || 0;
+    draw(context, camera) {
+        context.save();
+
+        context.translate(
+            (this.position.x - camera.position.x),
+            (this.position.y - camera.position.y)
+        );
+
+        context.rotate(this.rotation);
 
         this.objects.forEach((obj) => {
             if(typeof obj.draw === 'function') {
-                obj.draw(context, camera, this.position.add(position), this.rotation + rotation);
+                obj.draw(context, camera);
             }
         });
+
+        context.restore();
     }
 
     /**

@@ -10,12 +10,13 @@ class Square extends Minim2D.Object2D {
             1,
             1
         );
+        //this.bitmap.position.x = 20;
 
         this.add(this.bitmap);
         this.timer = 0.0;
         
-        this.position.x = 5;
-        //this.position.y = 5;
+        this.position.x = 150 +  Math.cos(this.timer) * 100;
+        this.position.y = 150 +  Math.sin(this.timer) * 100;
     }
 
     update(dt) {

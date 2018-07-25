@@ -10,7 +10,7 @@ export class Object2D {
     constructor(options) {
         options = options || { };
         let position = options.position || new Vector2();
-        let rotation = options.position || 0.0;
+        let rotation = options.rotation || 0.0;
         let fixed    = options.fixed    || false;
 
         Object.defineProperties(this, {

@@ -11,6 +11,7 @@ export class Object2D {
         options = options || { };
         let position = options.position || new Vector2();
         let rotation = options.rotation || 0.0;
+        let origin   = options.origin   || new Vector2();
         let fixed    = options.fixed    || false;
 
         Object.defineProperties(this, {
@@ -22,6 +23,11 @@ export class Object2D {
             rotation: {
                 enumerable: true,
                 value: rotation,
+                writable: true
+            },
+            origin: {
+                enumerable: true,
+                value: origin,
                 writable: true
             },
             fixed: {

@@ -9,11 +9,9 @@ export class Controls {
         this.paused = true;
 
         // Make sure we have some default options
-        options = options || {
-            customKeyCodes: { },
-            customStates: { }
-            
-        };
+        let customKeyCodes = options.customKeyCodes || { };
+        let customStates   = options.customStates   || { };
+        let buttonTimeout  = options.buttonTimeout  || 0.25;
 
         // Add a couple of event listeners
         document.addEventListener('pointerlockchange', () => { this.onPointerLockChange(); }, false);
@@ -56,7 +54,7 @@ export class Controls {
             81: 'left',  // Q
             68: 'right'  // D
         };
-        this.keyCodes = Object.assign(keyCodes, options.customKeyCodes);
+        this.keyCodes = Object.assign(keyCodes, customKeyCodes);
 
         let states = {
             // Mouse
@@ -72,9 +70,12 @@ export class Controls {
             left                : false,
             right               : false,
             deltaX              : 0.0,
-            deltaY              : 0.0
+            deltaY              : 0.0,
+            buttonTimeout       : buttonTimeout
         };
-        this.states = Object.assign(states, options.customStates);
+        this.states = Object.assign(states, customStates);
+
+        this.maxbuttonTimeout = buttonTimeout;
     }
 
     /**
@@ -104,14 +105,19 @@ export class Controls {
 
     /**
      * Update controls
+     * @param {Number} dt elapsed time since last frame
      * @returns {void}
      */
-    update() {
+    update(dt) {
         this.states.leftMouseJustClicked = false;
         this.states.leftMouseJustUp      = false;
         this.states.leftMouseJustDown    = false;
         this.states.leftMouseUp          = true;
         this.states.leftMouseDown        = false;
+
+        if(this.states.buttonTimeout >= 0.0) {
+            this.states.buttonTimeout -= dt;
+        }
     }
 
     /**

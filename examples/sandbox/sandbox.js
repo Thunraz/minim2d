@@ -1,17 +1,10 @@
 /* global Minim2D */
 /* eslint-disable require-jsdoc */
 class Square extends Minim2D.Object2D {
-    constructor(orbitSpeed) {
+    constructor(url, orbitSpeed) {
         super();
 
-        this.bitmap = new Minim2D.Bitmap(
-            './minim2d.png',
-            32,
-            32,
-            1,
-            1
-        );
-        //this.bitmap.position.x = 20;
+        this.bitmap = new Minim2D.Bitmap(url, 32, 32, 1, 1);
 
         this.add(this.bitmap);
         this.timer = 0.0;
@@ -83,12 +76,25 @@ class Recorder {
 }
 
 const BUTTON_TIMEOUT = 0.25;
+const CAMERA_PAN_AMT = 2;
 let recorder;
 
-function handleControls(states) {
+function handleControls(states, camera) {
     if(states.record && states.buttonTimeout <= 0.0 && recorder) {
         states.resetButtonTimeout(BUTTON_TIMEOUT);
         recorder.toggleRecording();
+    }
+
+    if(states.up && !states.down) {
+        camera.position.y -= CAMERA_PAN_AMT;
+    } else if(states.down && !states.up) {
+        camera.position.y += CAMERA_PAN_AMT;
+    }
+
+    if(states.left && !states.right) {
+        camera.position.x -= CAMERA_PAN_AMT;
+    } else if(states.right && !states.left) {
+        camera.position.x += CAMERA_PAN_AMT;
     }
 }
 
@@ -106,15 +112,20 @@ function handleControls(states) {
 
     recorder = new Recorder(game.canvas);
 
-    window.addEventListener('handleControls', (e) => handleControls(e.detail), false);
+    window.addEventListener('handleControls', (e) => handleControls(e.detail, camera), false);
 
-    let square1 = new Square(1.0);
+    let square1 = new Square('./minim2d_a.png', 1.0);
     scene.add(square1);
 
-    let square2 = new Square(2.0);
+    let square2 = new Square('./minim2d_a.png', 2.0);
     scene.add(square2);
 
-    let square3 = new Square(3.0);
+    let square3 = new Square('./minim2d_a.png', 3.0);
     square3.zIndex = -1;
+    square3.bitmap.position.x = 20;
     scene.add(square3);
+
+    let square4 = new Square('./minim2d_b.png', 0);
+    square3.fixed = true;
+    scene.add(square4);
 })();

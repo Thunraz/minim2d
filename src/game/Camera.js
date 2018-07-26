@@ -15,6 +15,6 @@ export class Camera {
      * @returns {void}
      */
     render(context, object) {
-        object.draw(context, this);
+        object.draw(context, null, this);
     }
 }

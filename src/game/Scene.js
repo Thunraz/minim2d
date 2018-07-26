@@ -1,13 +1,11 @@
 import { Object2D } from '../core/Object2D';
 
-const _objects = [];
-
 export class Scene {
     /**
      * Initializes the scene
      */
     constructor() {
-        
+        this.objects = [];
     }
 
     /**
@@ -17,7 +15,13 @@ export class Scene {
      */
     add(object) {
         if(object instanceof Object2D) {
-            _objects.push(object);
+            this.objects.push(object);
+            this.objects.sort((a, b) => {
+                if(a.zIndex === b.zIndex) {
+                    return a.id > b.id;
+                }
+                return a.zIndex >= b.zIndex;
+            });
         } else {
             console.error('Can\'t add object. Must be an instance or derivative of Object2D.');
         }
@@ -29,8 +33,8 @@ export class Scene {
      * @returns {void}
      */
     update(dt) {
-        _objects.forEach((value) => {
-            value.update(dt);
+        this.objects.forEach((object) => {
+            object.update(dt);
         });
     }
 
@@ -41,7 +45,7 @@ export class Scene {
      * @returns {void}
      */
     render(context, camera) {
-        _objects.forEach((object) => {
+        this.objects.forEach((object) => {
             if(object instanceof Object2D) {
                 camera.render(context, object);
             }

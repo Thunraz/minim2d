@@ -126,6 +126,6 @@ function handleControls(states, camera) {
     scene.add(square3);
 
     let square4 = new Square('./minim2d_b.png', 0);
-    square3.fixed = true;
+    square4.fixed = true;
     scene.add(square4);
 })();

@@ -73,9 +73,9 @@ export class Object2D {
      * @returns {void}
      */
     update(dt) {
-        this.objects.forEach((value) => {
-            if(typeof value.update === 'function') {
-                value.update(dt);
+        this.objects.forEach((object) => {
+            if(typeof object.update === 'function') {
+                object.update(dt);
             }
         });
     }
@@ -83,24 +83,35 @@ export class Object2D {
     /**
      * Draws this Object2D on the screen
      * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {Camera} camera the camera used to render this object
-     * @param {Vector2} position (optional) offset position
-     * @param {Vector2} rotation (optional) rotation
+     * @param {function} cb (optional) callback to call after translations.
+     * Can be used to reduce duplicated code in child classes.
+     * @param {Camera} camera (optional) the camera used to render this object.
+     * If not supplied, will render to screen coordinates.
      * @returns {void}
      */
-    draw(context, camera) {
+    draw(context, cb, camera) {
         context.save();
-
-        context.translate(
-            (this.position.x - camera.position.x),
-            (this.position.y - camera.position.y)
-        );
+        
+        if(this.fixed || typeof camera === 'undefined') {
+            context.translate(
+                this.position.x,
+                this.position.y
+            );
+        } else {
+            context.translate(
+                (this.position.x - camera.position.x),
+                (this.position.y - camera.position.y)
+            );
+        }
 
         context.rotate(this.rotation);
+        if(typeof cb === 'function') {
+            cb();
+        }
 
-        this.objects.forEach((obj) => {
-            if(typeof obj.draw === 'function') {
-                obj.draw(context, camera);
+        this.objects.forEach((object) => {
+            if(typeof object.draw === 'function') {
+                object.draw(context, cb);
             }
         });
 

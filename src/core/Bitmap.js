@@ -26,40 +26,27 @@ export class Bitmap extends Object2D {
     /**
      * Draw the bitmap onto the canvas.
      * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {Camera} camera The rendering camera
-     * @param {Vector2} position (optional) offset position
-     * @param {Vector2} rotation (optional) rotation
+     * @param {function} cb (optional) callback to call after translations.
+     * Can be used to reduce duplicated code in child classes.
+     * @param {Camera} camera (optional) the camera used to render this object.
+     * If not supplied, will render to screen coordinates.
      * @returns {void}
      */
-    draw(context, camera) {
-        context.save();
-
-        if(this.fixed) {
-            context.translate(
-                this.position.x * this.scale,
-                this.position.y * this.scale
+    draw(context, cb, camera) {
+        let drawBitmap = () => {
+            context.drawImage(
+                this.image,
+                this.currentFrame * this.width,
+                0,
+                this.width,
+                this.height,
+                -this.width / 2 * this.scale,
+                -this.height / 2 * this.scale,
+                this.width * this.scale,
+                this.height * this.scale
             );
-        } else {
-            context.translate(
-                (this.position.x - camera.position.x) * this.scale,
-                (this.position.y - camera.position.y) * this.scale
-            );
-        }
+        };
 
-        context.rotate(this.rotation);
-
-        context.drawImage(
-            this.image,
-            this.currentFrame * this.width,
-            0,
-            this.width,
-            this.height,
-            -this.width / 2 * this.scale,
-            -this.height / 2 * this.scale,
-            this.width * this.scale,
-            this.height * this.scale
-        );
-
-        context.restore();
+        super.draw(context, drawBitmap, camera);
     }
 }

@@ -10,11 +10,11 @@ export class Object2D {
      */
     constructor(options) {
         options = options || { };
-        let position = options.position || new Vector2();
-        let rotation = options.rotation || 0.0;
-        let origin   = options.origin   || new Vector2();
-        let fixed    = options.fixed    || false;
-        let zIndex   = options.zIndex   || 1;
+        let position    = options.position    || new Vector2();
+        let rotation    = options.rotation    || 0.0;
+        let origin      = options.origin      || new Vector2();
+        let renderFixed = options.renderFixed || false;
+        let zIndex      = options.zIndex      || 1;
 
         Object.defineProperties(this, {
             position: {
@@ -32,9 +32,9 @@ export class Object2D {
                 value: origin,
                 writable: true
             },
-            fixed: {
+            renderFixed: {
                 enumerable: true,
-                value: fixed,
+                value: renderFixed,
                 writable: true
             },
             zIndex: {
@@ -92,7 +92,7 @@ export class Object2D {
     draw(context, cb, camera) {
         context.save();
         
-        if(this.fixed || typeof camera === 'undefined') {
+        if(this.renderFixed || typeof camera === 'undefined') {
             context.translate(
                 this.position.x,
                 this.position.y

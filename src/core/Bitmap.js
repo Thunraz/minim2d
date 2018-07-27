@@ -45,6 +45,10 @@ export class Bitmap extends Object2D {
                 this.width * this.scale,
                 this.height * this.scale
             );
+
+            if(typeof cb === 'function') {
+                cb();
+            }
         };
 
         super.draw(context, drawBitmap, camera);

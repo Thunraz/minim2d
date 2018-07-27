@@ -2,6 +2,7 @@ export { Bitmap   } from './core/Bitmap';
 export { Camera   } from './game/Camera';
 export { Game     } from './game/Game';
 export { Object2D } from './core/Object2D';
+export { Recorder } from './helper/Recorder';
 export { Scene    } from './game/Scene';
 export { Vector2  } from './math/Vector2';
 

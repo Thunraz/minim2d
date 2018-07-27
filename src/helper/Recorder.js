@@ -50,7 +50,8 @@ export class Recorder {
                     this.recordedBlobs.push(event.data);
                 }
             };
-            this.mediaRecorder.start();
+            // Start recording in 100 ms blocks
+            this.mediaRecorder.start(100);
             this.isRecording = true;
         } catch(e) {
             console.warn('Unable to create MediaRecorder with options Object: ', e);

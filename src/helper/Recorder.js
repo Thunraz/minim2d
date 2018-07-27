@@ -2,16 +2,16 @@ export class Recorder {
     /**
      * Initializes the recorder.
      * @param {HTMLElement} canvas The reference to the canvas HTML element
-     * @param {Number} bitsPerSecond (optional) bit rate of the resulting video, default is 4000000 (4000 kBit)
      * @param {String} filename (optional) the output filename (including extension '.webm')
+     * @param {Number} bitsPerSecond (optional) bit rate of the resulting video, default is 4000000 (4000 kBit)
      */
-    constructor(canvas, bitsPerSecond, filename) {
+    constructor(canvas, filename, bitsPerSecond) {
         if(!canvas || !(canvas instanceof HTMLElement)) {
             throw new Error('Parameter canvas has not been supplied is of the wrong type.');
         }
         this.canvas        = canvas;
-        this.bitsPerSecond = bitsPerSecond || 4000e3;
         this.filename      = filename      || 'output.webm';
+        this.bitsPerSecond = bitsPerSecond || 4000e3;
         this.isRecording   = false;
     }
 
@@ -74,13 +74,15 @@ export class Recorder {
         let blob = new Blob(this.recordedBlobs, { type: 'video/webm' });
         let url  = window.URL.createObjectURL(blob);
         
+        // Create anchor to download the file
         let anchor           = document.createElement('a');
         anchor.style.display = 'none';
         anchor.href          = url;
-        anchor.download      = 'output.webm';
+        anchor.download      = this.filename;
         document.body.appendChild(anchor);
         anchor.click();
         
+        // Remove anchor again after a small timeout
         setTimeout(() => {
             document.body.removeChild(anchor);
             window.URL.revokeObjectURL(url);

@@ -1,10 +1,11 @@
-export { Bitmap   } from './core/Bitmap';
-export { Camera   } from './game/Camera';
-export { Game     } from './game/Game';
-export { Object2D } from './core/Object2D';
-export { Recorder } from './helper/Recorder';
-export { Scene    } from './game/Scene';
-export { Vector2  } from './math/Vector2';
+export { Bitmap       } from './core/Bitmap';
+export { Camera       } from './game/Camera';
+export { Game         } from './game/Game';
+export { Object2D     } from './core/Object2D';
+export { Recorder     } from './helper/Recorder';
+export { Scene        } from './game/Scene';
+export { SoundManager } from './helper/SoundManager';
+export { Vector2      } from './math/Vector2';
 
 let col1 = (opacity) => { return `rgba( 48, 232, 191, ${opacity})`; };
 let col2 = (opacity) => { return `rgba(255, 130,  53, ${opacity})`; };

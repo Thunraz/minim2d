@@ -29,5 +29,8 @@
                 }
             }
         ]
+    ],
+    "plugins": [
+        "external-helpers"
     ]
 }

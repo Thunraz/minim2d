@@ -1,6 +1,5 @@
 import { Camera } from './Camera';
 import { Controls } from '../input/Controls';
-import { SoundManager } from '../helper/SoundManager';
 
 export class Game {
     /**
@@ -37,10 +36,6 @@ export class Game {
         this.lastFrameTime = 0;
         this.frames = 0;
         this.controls = new Controls(controlsOptions);
-
-        this.soundManager = new SoundManager(this);
-        // We need to resume the audio context, thanks to the Chrome Web Audio autoplay policy
-        window.addEventListener('firstUnpaused', () => { this.soundManager.audioContext.resume(); }, false);
 
         this.currentScene = null;
     }

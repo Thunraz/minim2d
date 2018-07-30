@@ -1,5 +1,16 @@
 import { Game } from '../game/Game';
 
+export class Sound {
+    /**
+     * @param {String} name The sound's name, used for referencing, must be unique.
+     * @param {AudioBufferSourceNode} buffer The sound data
+     */
+    constructor(name, buffer) {
+        this.name   = name;
+        this.buffer = buffer;
+    }
+}
+
 export class SoundManager {
     /**
      * 
@@ -10,7 +21,8 @@ export class SoundManager {
             throw new Error('Parameter \'game\' has not been passed or is not an instance of Game');
         }
 
-        this.game = game;
+        this.game   = game;
+        this.sounds = [ ];
 
         try {
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -19,34 +31,39 @@ export class SoundManager {
             console.error('Could not start audio context.');
             throw e;
         }
+
+        // We need to resume the audio context, thanks to the Chrome Web Audio autoplay policy
+        window.addEventListener('firstUnpaused', () => { this.audioContext.resume(); }, false);
     }
 
     /**
      * 
      * @param {String} url the url to the sound file
+     * @param {String} name the name to give the file
      * @returns {void}
      */
-    loadSound(url) {
+    async loadSound(url, name) {
         if(!url) {
             throw new Error('Parameter url has to be provided!');
         }
 
-        let source = this.audioContext.createBufferSource();
+        if(!name) {
+            throw new Error('Parameter name has to be provided!');
+        }
 
-        fetch(url)
-            .then(
-                (response) => { return response.arrayBuffer(); },
-                (reason)   => { throw reason; }
-            )
-            .then((buffer) => {
-                this.audioContext.decodeAudioData(buffer, (decodedData) => {
-                    source.buffer = decodedData;
-                    source.connect(this.audioContext.destination);
-
-                    return source;
-                });
+        let scope = this;
+        let audioData = await fetch(url)
+            .then(response => response.arrayBuffer())
+            .then(async function(arrayBuffer) {
+                return await scope.audioContext.decodeAudioData(arrayBuffer);
             });
-
-        return source;
+            
+        for(let i = 0; i < this.sounds.length; i++) {
+            if(this.sounds[i].name === name) {
+                console.warn(`Sound '${name}' has already been loaded. Canceling load...`);
+                return;
+            }
+        }
+        this.sounds.push(new Sound(name, audioData));
     }
 }

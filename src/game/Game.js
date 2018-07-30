@@ -39,6 +39,8 @@ export class Game {
         this.controls = new Controls(controlsOptions);
 
         this.soundManager = new SoundManager(this);
+        // We need to resume the audio context, thanks to the Chrome Web Audio autoplay policy
+        window.addEventListener('firstUnpaused', () => { this.soundManager.audioContext.resume(); }, false);
 
         this.currentScene = null;
     }

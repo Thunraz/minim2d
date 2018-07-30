@@ -31,7 +31,7 @@ const BUTTON_TIMEOUT = 0.25;
 const CAMERA_PAN_AMT = 2;
 let recorder;
 
-function handleControls(states, camera) {
+function handleControls(states, camera, game) {
     if(states.record && states.buttonTimeout <= 0.0 && recorder) {
         states.resetButtonTimeout(BUTTON_TIMEOUT);
         recorder.toggleRecording();
@@ -48,12 +48,18 @@ function handleControls(states, camera) {
     } else if(states.right && !states.left) {
         camera.position.x += CAMERA_PAN_AMT;
     }
+
+    if(states.blip && states.buttonTimeout <= 0.0) {
+        states.resetButtonTimeout(BUTTON_TIMEOUT);
+        game.soundManager.play('blip');
+    }
 }
 
 
 (function() {
     let customKeyCodes = {
-        80: 'record'
+        80: 'record',
+        88: 'blip'
     };
     let camera = new Minim2D.Camera();
     let game   = new Minim2D.Game(camera, document.getElementById('g'), { customKeyCodes, buttonTimeout: BUTTON_TIMEOUT });
@@ -61,13 +67,14 @@ function handleControls(states, camera) {
 
     let soundManager = new Minim2D.SoundManager(game);
     soundManager.loadSound('./assets/blip.wav', 'blip');
+    game.soundManager = soundManager;
 
     game.setScene(scene);
     game.gameLoop();
 
     recorder = new Minim2D.Recorder(game.canvas);
 
-    window.addEventListener('handleControls', (e) => handleControls(e.detail, camera), false);
+    window.addEventListener('handleControls', (e) => handleControls(e.detail, camera, game), false);
 
     let square1 = new Square('./minim2d_a.png', 1.0);
     scene.add(square1);

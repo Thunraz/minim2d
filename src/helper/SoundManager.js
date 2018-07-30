@@ -66,4 +66,30 @@ export class SoundManager {
         }
         this.sounds.push(new Sound(name, audioData));
     }
+
+    /**
+     * Plays a specified sound.
+     * @param {String} name the name of the sound
+     * @returns {void}
+     */
+    play(name) {
+        if(!name) {
+            throw new Error('Parameter name has to be provided!');
+        }
+
+        let sound;
+        for(let i = 0; i < this.sounds.length; i++) {
+            if(this.sounds[i].name === name) {
+                sound = this.sounds[i];
+            }
+        }
+        if(!sound) {
+            throw new Error(`Could not find sound '${name}'!`);
+        }
+
+        let source = this.audioContext.createBufferSource();
+        source.buffer = sound.buffer;
+        source.connect(this.audioContext.destination);
+        source.start(0);
+    }
 }

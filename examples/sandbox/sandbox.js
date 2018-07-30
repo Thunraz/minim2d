@@ -59,7 +59,8 @@ function handleControls(states, camera) {
     let game   = new Minim2D.Game(camera, document.getElementById('g'), { customKeyCodes, buttonTimeout: BUTTON_TIMEOUT });
     let scene  = new Minim2D.Scene();
 
-    console.log(game.soundManager.loadSound('./assets/blip.wav'));
+    let soundManager = new Minim2D.SoundManager(game);
+    soundManager.loadSound('./assets/blip.wav', 'blip');
 
     game.setScene(scene);
     game.gameLoop();

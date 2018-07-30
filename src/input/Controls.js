@@ -8,6 +8,8 @@ export class Controls {
     constructor(options) {
         this.paused = true;
 
+        this.firstUnpaused = true;
+
         // Make sure we have some default options
         let customKeyCodes = options.customKeyCodes || { };
         let customStates   = options.customStates   || { };
@@ -95,6 +97,10 @@ export class Controls {
             this.paused = false;
 
             this.blocker.style.display = 'none';
+            if(this.firstUnpaused) {
+                this.firstUnpaused = false;
+                window.dispatchEvent(new CustomEvent('firstUnpaused'));
+            }
         } else {
             this.paused = true;
 

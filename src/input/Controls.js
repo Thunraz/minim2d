@@ -22,6 +22,7 @@ export class Controls {
         document.addEventListener('click',            (e) => { this.onMouseClick(e);       }, false);
         document.addEventListener('mouseup',          (e) => { this.onMouseUp(e);          }, false);
         document.addEventListener('mousedown',        (e) => { this.onMouseDown(e);        }, false);
+        document.addEventListener('wheel',            (e) => { this.onMouseWheel(e);       }, false);
         document.addEventListener('keydown',          (e) => { this.onKeyDown(e);          }, false);
         document.addEventListener('keyup',            (e) => { this.onKeyUp(e);            }, false);
 
@@ -73,6 +74,9 @@ export class Controls {
             right               : false,
             deltaX              : 0.0,
             deltaY              : 0.0,
+            scrollX             : 0.0,
+            scrollY             : 0.0,
+            scrollZ             : 0.0,
             buttonTimeout       : buttonTimeout,
             resetButtonTimeout  : this.resetButtonTimeout
         };
@@ -196,5 +200,16 @@ export class Controls {
         this.states.leftMouseJustDown = true;
         this.states.leftMouseDown     = true;
         this.states.leftMouseUp       = false;
+    }
+
+    /**
+     * Handles mouse wheel event
+     * @param {WheelEvent} e Mouse wheel event
+     * @returns {void}
+     */
+    onMouseWheel(e) {
+        this.states.scrollX = e.deltaX;
+        this.states.scrollY = e.deltaY;
+        this.states.scrollZ = e.deltaZ;
     }
 }

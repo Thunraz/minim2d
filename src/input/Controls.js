@@ -140,7 +140,7 @@ export class Controls {
 
     /**
      * Handles key down events
-     * @param {Event} e Key down event
+     * @param {KeyboardEvent} e Key down event
      * @returns {void}
      */
     onKeyDown(e) {
@@ -153,7 +153,7 @@ export class Controls {
 
     /**
      * Handles key up events
-     * @param {Event} e Key up event
+     * @param {KeyboardEvent} e Key up event
      * @returns {void}
      */
     onKeyUp(e) {

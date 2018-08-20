@@ -33,7 +33,6 @@ export class Controls {
         this.element         = document.body;
 
         this.element.addEventListener('click', () => {
-            //this.noticeContainer.style.display = 'none';
             this.element.requestPointerLock();
         }, false );
 

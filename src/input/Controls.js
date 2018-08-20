@@ -38,23 +38,11 @@ export class Controls {
 
         // Define keyboard keys
         let keyCodes = {
-            // Support arrow keys    
-            38: 'up',    // ↑
-            40: 'down',  // ↓
-            37: 'left',  // ←
-            39: 'right', // →
-
-            // Support WASD
-            87: 'up',    // W
-            83: 'down',  // S
-            65: 'left',  // A
-            68: 'right', // D
-
-            // Support ZQSD (pour les amis français 🇫🇷)
-            90: 'up',    // Z
-            83: 'down',  // S
-            81: 'left',  // Q
-            68: 'right'  // D
+            // Support the new UI Events API
+            'KeyW': 'up',
+            'KeyA': 'left',
+            'KeyS': 'down',
+            'KeyD': 'right'
         };
         this.keyCodes = Object.assign(keyCodes, customKeyCodes);
 
@@ -143,7 +131,7 @@ export class Controls {
      * @returns {void}
      */
     onKeyDown(e) {
-        let code = this.keyCodes[e.which];
+        let code = this.keyCodes[e.code];
 
         if(code !== undefined) {
             this.states[code] = true;
@@ -156,7 +144,7 @@ export class Controls {
      * @returns {void}
      */
     onKeyUp(e) {
-        let code = this.keyCodes[e.which];
+        let code = this.keyCodes[e.code];
         
         if(code !== undefined) {
             this.states[code] = false;

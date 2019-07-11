@@ -28,7 +28,7 @@
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/preset-env": "^7.4.4",
     "concurrently": "^4.1.0",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "qunit": "^2.9.2",
     "rollup": "^1.14.3",
     "rollup-plugin-babel": "^4.3.2",

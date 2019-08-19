@@ -63,7 +63,7 @@ export class Object2D {
                 return a.zIndex >= b.zIndex;
             });
         } else {
-            console.error('Can\'t add object. Must be an instance or derivative of Drawable.');
+            console.error('Can\'t add object. Must be an instance or derivative of Object2D.');
         }
     }
 

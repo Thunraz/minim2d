@@ -101,8 +101,8 @@ export class Object2D {
             );
         } else {
             context.translate(
-                (this.position.x - camera.position.x),
-                (this.position.y - camera.position.y),
+                this.position.x - camera.position.x,
+                this.position.y - camera.position.y,
             );
         }
 

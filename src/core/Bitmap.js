@@ -40,8 +40,8 @@ export class Bitmap extends Object2D {
                 0,
                 this.width,
                 this.height,
-                (-this.width / 2) * this.scale,
-                (-this.height / 2) * this.scale,
+                (-this.width  / 2) * this.scale + this.origin.x,
+                (-this.height / 2) * this.scale + this.origin.y,
                 this.width * this.scale,
                 this.height * this.scale,
             );

@@ -14,15 +14,16 @@ export class Scene {
      * @returns {void}
      */
     add(object) {
-        if(object instanceof Object2D) {
+        if (object instanceof Object2D) {
             this.objects.push(object);
             this.objects.sort((a, b) => {
-                if(a.zIndex === b.zIndex) {
+                if (a.zIndex === b.zIndex) {
                     return a.id > b.id;
                 }
                 return a.zIndex >= b.zIndex;
             });
         } else {
+            // eslint-disable-next-line no-console
             console.error('Can\'t add object. Must be an instance or derivative of Object2D.');
         }
     }
@@ -46,9 +47,11 @@ export class Scene {
      */
     render(context, camera) {
         this.objects.forEach((object) => {
-            if(object instanceof Object2D) {
+            if (object instanceof Object2D) {
                 camera.render(context, object);
             }
         });
     }
 }
+
+export default Scene;

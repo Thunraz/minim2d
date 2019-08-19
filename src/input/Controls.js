@@ -11,9 +11,9 @@ export class Controls {
         this.firstUnpaused = true;
 
         // Make sure we have some default options
-        let customKeyCodes = options.customKeyCodes || { };
-        let customStates   = options.customStates   || { };
-        let buttonTimeout  = options.buttonTimeout  || 0.25;
+        const customKeyCodes = options.customKeyCodes || { };
+        const customStates   = options.customStates   || { };
+        const buttonTimeout  = options.buttonTimeout  || 0.25;
 
         // Add a couple of event listeners
         document.addEventListener('pointerlockchange', () => { this.onPointerLockChange(); }, false);
@@ -34,38 +34,38 @@ export class Controls {
 
         this.element.addEventListener('click', () => {
             this.element.requestPointerLock();
-        }, false );
+        }, false);
 
         // Define keyboard keys
-        let keyCodes = {
+        const keyCodes = {
             // Support the new UI Events API
-            'KeyW': 'up',
-            'KeyA': 'left',
-            'KeyS': 'down',
-            'KeyD': 'right'
+            KeyW: 'up',
+            KeyA: 'left',
+            KeyS: 'down',
+            KeyD: 'right',
         };
         this.keyCodes = Object.assign(keyCodes, customKeyCodes);
 
-        let states = {
+        const states = {
             // Mouse
             leftMouseJustClicked: false,
-            leftMouseJustUp     : false,
-            leftMouseJustDown   : false,
-            leftMouseUp         : true,
-            leftMouseDown       : false,
+            leftMouseJustUp:      false,
+            leftMouseJustDown:    false,
+            leftMouseUp:          true,
+            leftMouseDown:        false,
 
             // Keyboard
-            up                  : false,
-            down                : false,
-            left                : false,
-            right               : false,
-            deltaX              : 0.0,
-            deltaY              : 0.0,
-            scrollX             : 0.0,
-            scrollY             : 0.0,
-            scrollZ             : 0.0,
-            buttonTimeout       : buttonTimeout,
-            resetButtonTimeout  : this.resetButtonTimeout
+            up:                 false,
+            down:               false,
+            left:               false,
+            right:              false,
+            deltaX:             0.0,
+            deltaY:             0.0,
+            scrollX:            0.0,
+            scrollY:            0.0,
+            scrollZ:            0.0,
+            buttonTimeout,
+            resetButtonTimeout: this.resetButtonTimeout,
         };
         this.states = Object.assign(states, customStates);
     }
@@ -88,7 +88,7 @@ export class Controls {
             this.paused = false;
 
             this.blocker.style.display = 'none';
-            if(this.firstUnpaused) {
+            if (this.firstUnpaused) {
                 this.firstUnpaused = false;
                 window.dispatchEvent(new CustomEvent('firstUnpaused'));
             }
@@ -120,7 +120,7 @@ export class Controls {
         this.states.leftMouseUp          = true;
         this.states.leftMouseDown        = false;
 
-        if(this.states.buttonTimeout >= 0.0) {
+        if (this.states.buttonTimeout >= 0.0) {
             this.states.buttonTimeout -= dt;
         }
     }
@@ -131,9 +131,9 @@ export class Controls {
      * @returns {void}
      */
     onKeyDown(e) {
-        let code = this.keyCodes[e.code];
+        const code = this.keyCodes[e.code];
 
-        if(code !== undefined) {
+        if (code !== undefined) {
             this.states[code] = true;
         }
     }
@@ -144,9 +144,9 @@ export class Controls {
      * @returns {void}
      */
     onKeyUp(e) {
-        let code = this.keyCodes[e.code];
+        const code = this.keyCodes[e.code];
         
-        if(code !== undefined) {
+        if (code !== undefined) {
             this.states[code] = false;
         }
     }
@@ -200,3 +200,5 @@ export class Controls {
         this.states.scrollZ = e.deltaZ;
     }
 }
+
+export default Controls;

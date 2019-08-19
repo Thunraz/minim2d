@@ -1,27 +1,28 @@
-import { Camera } from './Camera';
+import { Camera   } from './Camera';
 import { Controls } from '../input/Controls';
 
 export class Game {
     /**
      * @param {Camera} camera The camera used to render the game
      * @param {HTMLElement} container (optional) the container to inject the game canvas into.
-     * @param {Object} controlsOptions (optional) options for the @see Controls controls 
-     * If not set, the canvas will be injected to body. If container is canvas, it will be used instead.
+     * @param {Object} controlsOptions (optional) options for the @see Controls controls
+     * If not set, the canvas will be injected to body. If container is canvas,
+     * it will be used instead.
      */
     constructor(camera, container, controlsOptions) {
-        if(!camera || !(camera instanceof Camera)) {
+        if (!camera || !(camera instanceof Camera)) {
             throw Error('Camera has not been specified');
         } else {
             this.camera = camera;
         }
 
-        if(container === undefined) {
+        if (container === undefined) {
             // Create canvas and append it to body
             this.canvas = document.createElement('canvas');
             this.canvas.height = 300;
             this.canvas.width  = 300;
             document.body.appendChild(this.canvas);
-        } else if(container.tagName === 'CANVAS') {
+        } else if (container.tagName === 'CANVAS') {
             // Canvas has already been created by the user - use it instead
             this.canvas = container;
         } else {
@@ -46,17 +47,17 @@ export class Game {
      * @returns {void}
      */
     gameLoop(timestamp) {
-        let deltaT = timestamp - this.lastFrameTime;
+        const deltaT = timestamp - this.lastFrameTime;
         this.lastFrameTime = timestamp;
 
-        if(!this.controls.paused) {
+        if (!this.controls.paused) {
             this.update(deltaT / 1000);
             this.render();
-        } else if(this.frames % 10 === 0) {
+        } else if (this.frames % 10 === 0) {
             this.render();
         }
 
-        this.frames++;
+        this.frames += 1;
     
         requestAnimationFrame((t) => this.gameLoop(t));
     }
@@ -79,7 +80,7 @@ export class Game {
         this.controls.update(dt);
         window.dispatchEvent(new CustomEvent('handleControls', { detail: this.controls.states }));
         
-        if(this.currentScene !== null) {
+        if (this.currentScene !== null) {
             this.currentScene.update(dt);
         }
     }
@@ -91,8 +92,10 @@ export class Game {
     render() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        if(this.currentScene !== null) {
+        if (this.currentScene !== null) {
             this.currentScene.render(this.context, this.camera);
         }
     }
 }
+
+export default Game;

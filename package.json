@@ -29,6 +29,8 @@
     "@babel/preset-env": "^7.4.4",
     "concurrently": "^4.1.0",
     "eslint": "^6.0.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
     "qunit": "^2.9.2",
     "rollup": "^1.19.2",
     "rollup-plugin-babel": "^4.3.2",

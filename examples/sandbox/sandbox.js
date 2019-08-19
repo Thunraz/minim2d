@@ -25,47 +25,62 @@ class Square extends Minim2D.Object2D {
 
         this.rotation = Math.sin(this.timer * dt * 100) * 10;
     }
+
+    handleControls(states, camera, game, dt) {
+        if (states.rotCCW && !states.rotCW) {
+            this.rotation -= dt;
+        } else if (states.rotCW && !states.rotCCW) {
+            this.rotation += dt;
+        }
+    }
 }
 
 const BUTTON_TIMEOUT = 0.25;
 const CAMERA_PAN_AMT = 2;
+const square1 = new Square('./minim2d_a.png', 1.0);
+square1.bitmap.origin = new Minim2D.Vector2(16, 32);
 let recorder;
 
-function handleControls(states, camera, game) {
-    if(states.record && states.buttonTimeout <= 0.0 && recorder) {
+function handleControls(states, camera, game, dt) {
+    if (states.record && states.buttonTimeout <= 0.0 && recorder) {
         states.resetButtonTimeout(BUTTON_TIMEOUT);
         recorder.toggleRecording();
     }
 
-    if(states.up && !states.down) {
+    if (states.up && !states.down) {
         camera.position.y -= CAMERA_PAN_AMT;
-    } else if(states.down && !states.up) {
+    } else if (states.down && !states.up) {
         camera.position.y += CAMERA_PAN_AMT;
     }
 
-    if(states.left && !states.right) {
+    if (states.left && !states.right) {
         camera.position.x -= CAMERA_PAN_AMT;
-    } else if(states.right && !states.left) {
+    } else if (states.right && !states.left) {
         camera.position.x += CAMERA_PAN_AMT;
     }
 
-    if(states.blip && states.buttonTimeout <= 0.0) {
+    if (states.blip && states.buttonTimeout <= 0.0) {
         states.resetButtonTimeout(BUTTON_TIMEOUT);
         game.soundManager.play('blip');
     }
+
+    square1.handleControls(states, camera, game, dt);
 }
 
 
-(function() {
-    let customKeyCodes = {
-        80: 'record',
-        88: 'blip'
+(function init() {
+    const customKeyCodes = {
+        80:   'record',
+        88:   'blip',
+        KeyQ: 'rotCCW',
+        KeyE: 'rotCW',
     };
-    let camera = new Minim2D.Camera();
-    let game   = new Minim2D.Game(camera, document.getElementById('g'), { customKeyCodes, buttonTimeout: BUTTON_TIMEOUT });
-    let scene  = new Minim2D.Scene();
 
-    let soundManager = new Minim2D.SoundManager(game);
+    const camera = new Minim2D.Camera();
+    const game   = new Minim2D.Game(camera, document.getElementById('g'), { customKeyCodes, buttonTimeout: BUTTON_TIMEOUT });
+    const scene  = new Minim2D.Scene();
+
+    const soundManager = new Minim2D.SoundManager(game);
     soundManager.loadSound('./assets/blip.wav', 'blip');
     game.soundManager = soundManager;
 
@@ -74,20 +89,19 @@ function handleControls(states, camera, game) {
 
     recorder = new Minim2D.Recorder(game.canvas);
 
-    window.addEventListener('handleControls', (e) => handleControls(e.detail, camera, game), false);
+    window.addEventListener('handleControls', (e) => handleControls(e.detail.states, camera, game, e.detail.deltaT), false);
 
-    let square1 = new Square('./minim2d_a.png', 1.0);
     scene.add(square1);
 
-    let square2 = new Square('./minim2d_a.png', 2.0);
+    const square2 = new Square('./minim2d_a.png', 2.0);
     scene.add(square2);
 
-    let square3 = new Square('./minim2d_a.png', 3.0);
+    const square3 = new Square('./minim2d_a.png', 3.0);
     square3.zIndex = -1;
     square3.bitmap.position.x = 20;
     scene.add(square3);
 
-    let square4 = new Square('./minim2d_b.png', 0);
+    const square4 = new Square('./minim2d_b.png', 0);
     square4.renderFixed = true;
     scene.add(square4);
-})();
+}());

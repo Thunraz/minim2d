@@ -18,3 +18,5 @@ export class Camera {
         object.draw(context, null, this);
     }
 }
+
+export default Camera;

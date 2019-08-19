@@ -10,42 +10,43 @@ export class Object2D {
      */
     constructor(options) {
         options = options || { };
-        let position    = options.position    || new Vector2();
-        let rotation    = options.rotation    || 0.0;
-        let origin      = options.origin      || new Vector2();
-        let renderFixed = options.renderFixed || false;
-        let zIndex      = options.zIndex      || 1;
+        const position    = options.position    || new Vector2();
+        const rotation    = options.rotation    || 0.0;
+        const origin      = options.origin      || new Vector2();
+        const renderFixed = options.renderFixed || false;
+        const zIndex      = options.zIndex      || 1;
 
         Object.defineProperties(this, {
             position: {
                 enumerable: true,
-                value: position,
-                writable: true
+                value:      position,
+                writable:   true,
             },
             rotation: {
                 enumerable: true,
-                value: rotation,
-                writable: true
+                value:      rotation,
+                writable:   true,
             },
             origin: {
                 enumerable: true,
-                value: origin,
-                writable: true
+                value:      origin,
+                writable:   true,
             },
             renderFixed: {
                 enumerable: true,
-                value: renderFixed,
-                writable: true
+                value:      renderFixed,
+                writable:   true,
             },
             zIndex: {
                 enumerable: true,
-                value: zIndex,
-                writable: true
-            }
+                value:      zIndex,
+                writable:   true,
+            },
         });
 
         this.objects = [];
-        this.id = lastID++;
+        this.id = lastID;
+        lastID += 1;
     }
 
     /**
@@ -54,15 +55,16 @@ export class Object2D {
      * @returns {void}
      */
     add(object) {
-        if(object instanceof Object2D) {
+        if (object instanceof Object2D) {
             this.objects.push(object);
             this.objects.sort((a, b) => {
-                if(a.zIndex === b.zIndex) {
+                if (a.zIndex === b.zIndex) {
                     return a.id > b.id;
                 }
                 return a.zIndex >= b.zIndex;
             });
         } else {
+            // eslint-disable-next-line no-console
             console.error('Can\'t add object. Must be an instance or derivative of Object2D.');
         }
     }
@@ -74,7 +76,7 @@ export class Object2D {
      */
     update(dt) {
         this.objects.forEach((object) => {
-            if(typeof object.update === 'function') {
+            if (typeof object.update === 'function') {
                 object.update(dt);
             }
         });
@@ -92,25 +94,25 @@ export class Object2D {
     draw(context, cb, camera) {
         context.save();
         
-        if(this.renderFixed || typeof camera === 'undefined') {
+        if (this.renderFixed || typeof camera === 'undefined') {
             context.translate(
                 this.position.x,
-                this.position.y
+                this.position.y,
             );
         } else {
             context.translate(
                 (this.position.x - camera.position.x),
-                (this.position.y - camera.position.y)
+                (this.position.y - camera.position.y),
             );
         }
 
         context.rotate(this.rotation);
-        if(typeof cb === 'function') {
+        if (typeof cb === 'function') {
             cb();
         }
 
         this.objects.forEach((object) => {
-            if(typeof object.draw === 'function') {
+            if (typeof object.draw === 'function') {
                 object.draw(context, cb);
             }
         });
@@ -128,7 +130,6 @@ export class Object2D {
     }
 
     /**
-     * 
      * @param {Number|Vector2} x delta x to move by or a Vector2 instance
      * @param {Number} y delta y to move by (optional if x is Vector2)
      * @returns {void}
@@ -136,7 +137,7 @@ export class Object2D {
     move(x, y) {
         let vec;
         
-        if(x instanceof Vector2) {
+        if (x instanceof Vector2) {
             vec = x;
         } else {
             vec = new Vector2(x, y);
@@ -145,3 +146,5 @@ export class Object2D {
         this.position = this.position.add(vec);
     }
 }
+
+export default Object2D;

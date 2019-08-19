@@ -5,13 +5,13 @@ export class Vector2 {
      * @param {Number} y (optional) the y coordinate. Default is 0.
      */
     constructor(x, y) {
-        if(x === undefined) {
+        if (x === undefined) {
             this.x = 0;
             this.y = 0;
         } else {
             this.x = x;
             
-            if(y === undefined) {
+            if (y === undefined) {
                 this.y = x;
             } else {
                 this.y = y;
@@ -80,3 +80,5 @@ export class Vector2 {
         return this.divideScalar(this.length() || 1);
     }
 }
+
+export default Vector2;

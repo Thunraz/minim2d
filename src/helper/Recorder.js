@@ -3,10 +3,11 @@ export class Recorder {
      * Initializes the recorder.
      * @param {HTMLElement} canvas The reference to the canvas HTML element
      * @param {String} filename (optional) the output filename (including extension '.webm')
-     * @param {Number} bitsPerSecond (optional) bit rate of the resulting video, default is 4000000 (4000 kBit)
+     * @param {Number} bitsPerSecond (optional) bit rate of the resulting video,
+     *      default is 4000000 (4000 kBit)
      */
     constructor(canvas, filename, bitsPerSecond) {
-        if(!canvas || !(canvas instanceof HTMLElement)) {
+        if (!canvas || !(canvas instanceof HTMLElement)) {
             throw new Error('Parameter canvas has not been supplied is of the wrong type.');
         }
         this.canvas        = canvas;
@@ -20,7 +21,7 @@ export class Recorder {
      * @returns {void}
      */
     toggleRecording() {
-        if(!this.isRecording) {
+        if (!this.isRecording) {
             this.startRecording();
         } else {
             this.stopRecording();
@@ -32,7 +33,7 @@ export class Recorder {
      * @returns {void}
      */
     startRecording() {
-        if(this.isRecording) {
+        if (this.isRecording) {
             throw new Error('Already recording! Can\'t start recording.');
         }
 
@@ -41,7 +42,7 @@ export class Recorder {
         this.stream = this.canvas.captureStream();
         this.recordedBlobs = [];
 
-        let options = { mimeType: 'video/webm', videoBitsPerSecond: this.bitsPerSecond };
+        const options = { mimeType: 'video/webm', videoBitsPerSecond: this.bitsPerSecond };
         try {
             this.mediaRecorder = new MediaRecorder(this.stream, options);
 
@@ -53,7 +54,8 @@ export class Recorder {
             // Start recording in 100 ms blocks
             this.mediaRecorder.start(100);
             this.isRecording = true;
-        } catch(e) {
+        } catch (e) {
+            // eslint-disable-next-line no-console
             console.warn('Unable to create MediaRecorder with options Object: ', e);
         }
     }
@@ -63,7 +65,7 @@ export class Recorder {
      * @returns {void}
      */
     stopRecording() {
-        if(!this.isRecording) {
+        if (!this.isRecording) {
             throw new Error('Can\'t stop recording, no recording running right now.');
         }
 
@@ -72,11 +74,11 @@ export class Recorder {
         this.mediaRecorder.stop();
         this.isRecording = false;
 
-        let blob = new Blob(this.recordedBlobs, { type: 'video/webm' });
-        let url  = window.URL.createObjectURL(blob);
+        const blob = new Blob(this.recordedBlobs, { type: 'video/webm' });
+        const url  = window.URL.createObjectURL(blob);
         
         // Create anchor to download the file
-        let anchor           = document.createElement('a');
+        const anchor         = document.createElement('a');
         anchor.style.display = 'none';
         anchor.href          = url;
         anchor.download      = this.filename;
@@ -90,3 +92,5 @@ export class Recorder {
         }, 100);
     }
 }
+
+export default Recorder;

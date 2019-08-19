@@ -78,7 +78,8 @@ export class Game {
      */
     update(dt) {
         this.controls.update(dt);
-        window.dispatchEvent(new CustomEvent('handleControls', { detail: this.controls.states }));
+        const detail = { states: this.controls.states, deltaT: dt };
+        window.dispatchEvent(new CustomEvent('handleControls', { detail }));
         
         if (this.currentScene !== null) {
             this.currentScene.update(dt);

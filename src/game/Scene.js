@@ -10,7 +10,7 @@ export class Scene {
 
     /**
      * Adds a new Object2D to the scene.
-     * @param {Object2D} object The drawable to add to the Object
+     * @param {Object2D} object The Object2D instance to add to the Object
      * @returns {void}
      */
     add(object) {

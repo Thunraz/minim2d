@@ -26,13 +26,16 @@ export class Bitmap extends Object2D {
     /**
      * Draw the bitmap onto the canvas.
      * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {function} cb (optional) callback to call after translations.
-     * Can be used to reduce duplicated code in child classes.
      * @param {Camera} camera (optional) the camera used to render this object.
      * If not supplied, will render to screen coordinates.
      * @returns {void}
      */
-    draw(context, cb, camera) {
+    draw(context, camera) {
+        super.draw(context, camera);
+
+        context.save();
+        this.translate(context, camera);
+
         context.drawImage(
             this.image,
             this.currentFrame * this.width,
@@ -45,11 +48,7 @@ export class Bitmap extends Object2D {
             this.height * this.scale,
         );
 
-        if (typeof cb === 'function') {
-            cb(context, cb);
-        }
-
-        super.draw(context, cb, camera);
+        context.restore();
     }
 }
 

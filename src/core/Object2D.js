@@ -82,18 +82,7 @@ export class Object2D {
         });
     }
 
-    /**
-     * Draws this Object2D on the screen
-     * @param {CanvasRenderingContext2D} context The 2D rendering context
-     * @param {function} cb (optional) callback to call after translations.
-     * Can be used to reduce duplicated code in child classes.
-     * @param {Camera} camera (optional) the camera used to render this object.
-     * If not supplied, will render to screen coordinates.
-     * @returns {void}
-     */
-    draw(context, cb, camera) {
-        context.save();
-        
+    translate(context, camera) {
         if (this.renderFixed || typeof camera === 'undefined') {
             context.translate(
                 this.position.x,
@@ -105,15 +94,26 @@ export class Object2D {
                 this.position.y - camera.position.y,
             );
         }
-
+        
         context.rotate(this.rotation);
-        if (typeof cb === 'function') {
-            cb();
-        }
+    }
+
+    /**
+     * Draws this Object2D on the screen
+     * @param {CanvasRenderingContext2D} context The 2D rendering context
+     * @param {Camera} camera (optional) the camera used to render this object.
+     * If not supplied, will render to screen coordinates.
+     * @returns {void}
+     */
+    draw(context, camera) {
+        context.save();
+        this.translate(context, camera);
 
         this.objects.forEach((object) => {
             if (typeof object.draw === 'function') {
-                object.draw(context, cb);
+                // Since we already did the camera translation,
+                // we're not passing the camera object again.
+                object.draw(context);
             }
         });
 

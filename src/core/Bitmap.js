@@ -33,25 +33,23 @@ export class Bitmap extends Object2D {
      * @returns {void}
      */
     draw(context, cb, camera) {
-        const drawBitmap = () => {
-            context.drawImage(
-                this.image,
-                this.currentFrame * this.width,
-                0,
-                this.width,
-                this.height,
-                (-this.width  / 2) * this.scale + this.origin.x,
-                (-this.height / 2) * this.scale + this.origin.y,
-                this.width * this.scale,
-                this.height * this.scale,
-            );
+        context.drawImage(
+            this.image,
+            this.currentFrame * this.width,
+            0,
+            this.width,
+            this.height,
+            (-this.width  / 2) * this.scale + this.origin.x,
+            (-this.height / 2) * this.scale + this.origin.y,
+            this.width * this.scale,
+            this.height * this.scale,
+        );
 
-            if (typeof cb === 'function') {
-                cb();
-            }
-        };
+        if (typeof cb === 'function') {
+            cb(context, cb);
+        }
 
-        super.draw(context, drawBitmap, camera);
+        super.draw(context, cb, camera);
     }
 }
 

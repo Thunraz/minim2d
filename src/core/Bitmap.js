@@ -1,4 +1,5 @@
 import { Object2D } from './Object2D';
+import { Vector2  } from '../math/Vector2';
 
 export class Bitmap extends Object2D {
     /**
@@ -17,6 +18,7 @@ export class Bitmap extends Object2D {
 
         this.width  = width;
         this.height = height;
+        this.origin = new Vector2(Math.floor(this.width / 2), Math.floor(this.height / 2));
         this.scale  = scale;
 
         this.numberOfFrames = numberOfFrames || 0;
@@ -42,8 +44,8 @@ export class Bitmap extends Object2D {
             0,
             this.width,
             this.height,
-            (-this.width  / 2) * this.scale + this.origin.x,
-            (-this.height / 2) * this.scale + this.origin.y,
+            this.origin.x,
+            this.origin.y,
             this.width * this.scale,
             this.height * this.scale,
         );

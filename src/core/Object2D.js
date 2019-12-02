@@ -82,16 +82,18 @@ export class Object2D {
         });
     }
 
-    translate(context, camera) {
+    translate(context, camera, offset) {
+        offset = offset || new Vector2();
+
         if (this.renderFixed || typeof camera === 'undefined') {
             context.translate(
-                this.position.x,
-                this.position.y,
+                this.position.x + offset.x,
+                this.position.y + offset.y,
             );
         } else {
             context.translate(
-                this.position.x - camera.position.x,
-                this.position.y - camera.position.y,
+                this.position.x - camera.position.x + offset.x,
+                this.position.y - camera.position.y + offset.y,
             );
         }
         

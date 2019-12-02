@@ -38,7 +38,9 @@ export class Game {
         this.frames = 0;
         this.controls = new Controls(controlsOptions);
 
-        this.currentScene = null;
+        this.currentScene       = null;
+        this.preRenderCallback  = null;
+        this.postRenderCallback = null;
     }
 
     /**
@@ -92,9 +94,17 @@ export class Game {
      */
     render() {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+        if (typeof this.preRenderCallback === 'function') {
+            this.preRenderCallback(this.context, this.camera);
+        }
         
         if (this.currentScene !== null) {
             this.currentScene.render(this.context, this.camera);
+        }
+
+        if (typeof this.postRenderCallback === 'function') {
+            this.postRenderCallback(this.context, this.camera);
         }
     }
 }

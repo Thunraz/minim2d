@@ -30,7 +30,7 @@
     "concurrently": "^5.0.0",
     "eslint": "^6.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.19.1",
     "qunit": "^2.9.2",
     "rollup": "^1.27.9",
     "rollup-plugin-babel": "^4.3.2",

@@ -24,7 +24,7 @@
   "author": "Thunraz <thunraz@thunraz.com>",
   "license": "MIT",
   "devDependencies": {
-    "@babel/core": "^7.4.4",
+    "@babel/core": "^7.8.0",
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/preset-env": "^7.4.4",
     "concurrently": "^5.0.0",

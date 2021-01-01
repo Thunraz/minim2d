@@ -12,7 +12,7 @@ const col2 = (opacity) => `rgba(255, 130,  53, ${opacity})`;
 const version = 'VERSION';
 
 if (typeof window !== 'undefined') {
-    /* eslint-disable-next-line */
+    // eslint-disable-next-line no-console
     console.log(
         `%c .· Minim2D v${version} ·. `,
         `background: linear-gradient(to right, ${col1(0)} 0%, ${col1(1)} 10%, ${col2(1)} 90%, ${col2(0)} 100%); color: #fff; font-weight: bold`,

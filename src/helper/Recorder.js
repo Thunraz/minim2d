@@ -12,8 +12,40 @@ export class Recorder {
         }
         this.canvas        = canvas;
         this.filename      = filename      || 'output.webm';
-        this.bitsPerSecond = bitsPerSecond || 4000e3;
+        this.bitsPerSecond = bitsPerSecond || null;
         this.isRecording   = false;
+    }
+
+    /**
+     * Checks browser for best video type support
+     * @returns {Object} Best mime type possible along with a bitrate
+     */
+    // eslint-disable-next-line class-methods-use-this
+    determineBestType() {
+        const bitrate = 18e6;
+        const codecs = [
+            { mime: 'video/webm;codecs=vp8,vp9,opus', bitrate },
+            { mime: 'video/webm;codecs=vp9,opus', bitrate },
+            { mime: 'video/webm;codecs=VP8,OPUS', bitrate },
+            { mime: 'video/webm;codecs=vp8,pcm', bitrate },
+            { mime: 'video/webm;codecs=vp8,opus', bitrate },
+            { mime: 'video/webm;codecs=vp9.0', bitrate },
+            { mime: 'video/webm;codecs=vp8.0', bitrate },
+            { mime: 'video/webm;codecs=vp9', bitrate },
+            { mime: 'video/webm;codecs=vp8', bitrate },
+            { mime: 'video/webm', bitrate },
+        ];
+
+        for (let i = 0; i < codecs.length; i++) {
+            if (MediaRecorder.isTypeSupported(codecs[i].mime)) {
+                // eslint-disable-next-line
+                console.log(`Recorder: Using MIME type ${codecs[i].mime} with bitrate ${codecs[i].bitrate / 1e6} MBit/s`);
+                return codecs[i];
+            }
+        }
+
+        // Let browser choose
+        return 'video/webm';
     }
 
     /**
@@ -39,10 +71,21 @@ export class Recorder {
 
         /* eslint-disable-next-line */
         console.log('Starting to record');
+
+        if (!this.mimeType) {
+            const mimeType = this.determineBestType();
+            this.mimeType = mimeType.mime;
+            this.bitsPerSecond = this.bitsPerSecond || mimeType.bitrate;
+        }
+
         this.stream = this.canvas.captureStream();
         this.recordedBlobs = [];
 
-        const options = { mimeType: 'video/webm', videoBitsPerSecond: this.bitsPerSecond };
+        const options = {
+            mimeType:           this.mimeType,
+            videoBitsPerSecond: this.bitsPerSecond,
+        };
+
         try {
             this.mediaRecorder = new MediaRecorder(this.stream, options);
 
@@ -74,7 +117,7 @@ export class Recorder {
         this.mediaRecorder.stop();
         this.isRecording = false;
 
-        const blob = new Blob(this.recordedBlobs, { type: 'video/webm' });
+        const blob = new Blob(this.recordedBlobs, { type: this.mimeType });
         const url  = window.URL.createObjectURL(blob);
         
         // Create anchor to download the file

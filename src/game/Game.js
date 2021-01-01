@@ -79,6 +79,8 @@ export class Game {
      * @returns {void}
      */
     update(dt) {
+        window.dispatchEvent(new CustomEvent('beforeUpdate'));
+
         this.controls.update(dt);
         const detail = { states: this.controls.states, deltaT: dt };
         window.dispatchEvent(new CustomEvent('handleControls', { detail }));
@@ -86,6 +88,8 @@ export class Game {
         if (this.currentScene !== null) {
             this.currentScene.update(dt);
         }
+
+        window.dispatchEvent(new CustomEvent('afterUpdate'));
     }
 
     /**

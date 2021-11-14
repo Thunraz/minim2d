@@ -1,8 +1,6 @@
-// eslint-disable-next-line import/order
-import * as pkg from './package.json';
-
-import babel from 'rollup-plugin-babel';
 import replace from 'rollup-plugin-replace';
+// eslint-disable-next-line sort-imports
+import * as pkg from './package.json';
 
 export default {
     input:   'src/Minim2D.js',

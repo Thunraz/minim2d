@@ -1,3 +1,5 @@
+// https://github.com/Thunraz/minim2d/raw/master/LICENSE
+
 export { Bitmap       } from './core/Bitmap';
 export { Camera       } from './game/Camera';
 export { Game         } from './game/Game';
@@ -9,7 +11,7 @@ export { Vector2      } from './math/Vector2';
 
 const col1 = (opacity) => `rgba( 48, 232, 191, ${opacity})`;
 const col2 = (opacity) => `rgba(255, 130,  53, ${opacity})`;
-const version = 'VERSION';
+const version = '__VERSION__';
 
 if (typeof window !== 'undefined') {
     // eslint-disable-next-line no-console

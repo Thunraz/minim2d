@@ -8,7 +8,7 @@ export class Recorder {
      */
     constructor(canvas, filename, bitsPerSecond) {
         if (!canvas || !(canvas instanceof HTMLElement)) {
-            throw new Error('Parameter canvas has not been supplied is of the wrong type.');
+            throw new Error('Parameter canvas has not been supplied or is of the wrong type.');
         }
         this.canvas        = canvas;
         this.filename      = filename      || 'output.webm';

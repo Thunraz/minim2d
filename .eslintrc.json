@@ -17,26 +17,63 @@
         "valid-typeof": "warn",
         "no-var": "error",
         "no-tabs": "error",
-        "indent": ["error", 4],
+        "indent": [
+            "error",
+            4
+        ],
         "no-console": "warn",
         "no-duplicate-imports": "error",
         "sort-imports": "error",
         "valid-jsdoc": "warn",
-        "quotes": ["error", "single"],
+        "quotes": [
+            "error",
+            "single"
+        ],
         "no-multi-spaces": "off",
-        "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
-        "no-trailing-spaces": ["error", { "skipBlankLines": true }],
+        "lines-between-class-members": [
+            "error",
+            "always",
+            {
+                "exceptAfterSingleLine": true
+            }
+        ],
+        "no-trailing-spaces": [
+            "error",
+            {
+                "skipBlankLines": true
+            }
+        ],
         "no-bitwise": "off",
-        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
-        "key-spacing": [2, { "align": "value" }],
+        "no-plusplus": [
+            "error",
+            {
+                "allowForLoopAfterthoughts": true
+            }
+        ],
+        "key-spacing": [
+            2,
+            {
+                "align": "value"
+            }
+        ],
         "spaced-comment": [
             "error",
             "always",
             {
-                "block": { "exceptions": ["/"] },
-                "line": { "exceptions": ["*/", "*"] }
+                "block": {
+                    "exceptions": [
+                        "/"
+                    ]
+                },
+                "line": {
+                    "exceptions": [
+                        "*/",
+                        "*"
+                    ]
+                }
             }
         ],
-        "no-param-reassign": "off"
+        "no-param-reassign": "off",
+        "prefer-regex-literals": "off"
     }
 }

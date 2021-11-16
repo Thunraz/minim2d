@@ -32,9 +32,7 @@ jobs:
     - run: npm test
 
 
-    - name: Jest Annotations & Coverage
+    - name: Jest Code Coverage Badge
       # You may pin to the exact commit or the version.
-      # uses: mattallty/jest-github-action@43bbcd073fa43a927322f188220b6592acae003b
-      uses: mattallty/jest-github-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # uses: luk-schweizer/jest-code-coverage-badge-action@2c6d938cdf1ab1be69aa904237dd05a9647523e4
+      uses: luk-schweizer/jest-code-coverage-badge-action@v1.0.1

@@ -2,7 +2,6 @@
   "name": "minim2d",
   "version": "0.3.5",
   "private": true,
-  "type": "module",
   "description": "Minimalist JavaScript 2D library",
   "main": "build/minim2d.js",
   "repository": "Thunraz/Minim2D",
@@ -10,12 +9,12 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "npx rollup -c",
-    "build-minify": "env NODE_ENV=production npx rollup -c",
+    "build": "rollup -c",
+    "build-minify": "env NODE_ENV=production rollup -c",
     "dev": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c --watch\" \"serve -l 8080\"",
     "start": "npm run dev",
     "lint": "eslint src",
-    "test": "jasmine",
+    "test": "jest",
     "build-test": "rollup -c test/rollup.unit.config.js"
   },
   "author": "Thunraz <thunraz@thunraz.com>",
@@ -27,7 +26,6 @@
     "eslint": "^8.2.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.25.3",
-    "rollup": "^2.60.0",
     "rollup-plugin-replace": "^2.2.0",
     "rollup-plugin-terser": "^7.0.2",
     "serve": "^13.0.2"

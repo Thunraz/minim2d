@@ -32,6 +32,20 @@ const builds = [
             },
         ],
     },
+    {
+        input:   'src/Minim2D.js',
+        plugins: [
+            replace({ __VERSION__: pkg.version }),
+        ],
+        output: [
+            {
+                format: 'cjs',
+                name:   'Minim2D',
+                file:   'build/minim2d.cjs.js',
+                indent: '    ',
+            },
+        ],
+    },
 ];
 
 if (!isDevelopment) {

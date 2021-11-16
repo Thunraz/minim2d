@@ -14,7 +14,7 @@
     "dev": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c --watch\" \"serve -l 8080\"",
     "start": "npm run dev",
     "lint": "eslint src",
-    "test": "jest",
+    "test": "jest --coverage",
     "build-test": "rollup -c test/rollup.unit.config.js"
   },
   "author": "Thunraz <thunraz@thunraz.com>",

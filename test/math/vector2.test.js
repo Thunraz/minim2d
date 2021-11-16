@@ -73,9 +73,9 @@ describe('scalar division returns correct result vector', () => {
     each([
         [new Minim2D.Vector2(5, 10), 2.5, 2, 4],
         [new Minim2D.Vector2(10, 5), 2.5, 4, 2],
-        [new Minim2D.Vector2(13, 11), 1, 13, 11],
-        [new Minim2D.Vector2(7, 14), 7, 1, 2],
-        [new Minim2D.Vector2(25, 50), 5, 5, 10],
+        [new Minim2D.Vector2(13, -11), 1, 13, -11],
+        [new Minim2D.Vector2(7, -14), 7, 1, -2],
+        [new Minim2D.Vector2(25, 50), -5, -5, -10],
     ]).test('for %s', (vec, scalar, expectedX, expectedY) => {
         const newVec = vec.divideScalar(scalar);
 
@@ -88,7 +88,7 @@ describe('vector length is correct', () => {
     each([
         [new Minim2D.Vector2(5, 10), 11.18],
         [new Minim2D.Vector2(10, 5), 11.18],
-        [new Minim2D.Vector2(1, 0), 1],
+        [new Minim2D.Vector2(-1, 0), 1],
         [new Minim2D.Vector2(0, 1), 1],
         [new Minim2D.Vector2(0, 10), 10],
     ]).test('for %s', (vec, expectedResult) => {
@@ -103,7 +103,8 @@ describe('vector is normalized', () => {
         [new Minim2D.Vector2(1, 2), 0.447, 0.892],
         [new Minim2D.Vector2(3, 4), 0.6, 0.8],
         [new Minim2D.Vector2(5, 5), 0.707, 0.707],
-        [new Minim2D.Vector2(27, 28), 0.694, 0.719],
+        [new Minim2D.Vector2(-27, 28), -0.694, 0.719],
+        [new Minim2D.Vector2(27, -28), 0.694, -0.719],
     ]).test('for %s', (vec, expectedX, expectedY) => {
         const newVec = vec.normalize();
         expect(newVec.x).toBeCloseTo(expectedX);

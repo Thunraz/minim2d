@@ -24,7 +24,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm install --global jest rollup
     - run: npm ci
     - run: npm run build
     - run: npm test

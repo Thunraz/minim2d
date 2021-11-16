@@ -10,8 +10,8 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "rollup -c",
-    "build-minify": "env NODE_ENV=production rollup -c",
+    "build": "npx rollup -c",
+    "build-minify": "env NODE_ENV=production npx rollup -c",
     "dev": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c --watch\" \"serve -l 8080\"",
     "start": "npm run dev",
     "lint": "eslint src",

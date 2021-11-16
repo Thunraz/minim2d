@@ -3,7 +3,7 @@ import { terser } from 'rollup-plugin-terser';
 // eslint-disable-next-line sort-imports
 import * as pkg from './package.json';
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const isDevelopment = process.env.NODE_ENV !== 'production';
 
 const builds = [
     {

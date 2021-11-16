@@ -76,6 +76,7 @@
         "no-param-reassign": "off",
         "prefer-regex-literals": "off",
         "sort-imports": "error",
-        "import/order": "off"
+        "import/order": "off",
+        "import/extensions": "off"
     }
 }

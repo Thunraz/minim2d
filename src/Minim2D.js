@@ -1,13 +1,11 @@
-// https://github.com/Thunraz/minim2d/raw/master/LICENSE
-
-export { Bitmap       } from './core/Bitmap';
-export { Camera       } from './game/Camera';
-export { Game         } from './game/Game';
-export { Object2D     } from './core/Object2D';
-export { Recorder     } from './helper/Recorder';
-export { Scene        } from './game/Scene';
-export { SoundManager } from './helper/SoundManager';
-export { Vector2      } from './math/Vector2';
+export { Bitmap       } from './core/Bitmap.js';
+export { Camera       } from './game/Camera.js';
+export { Game         } from './game/Game.js';
+export { Object2D     } from './core/Object2D.js';
+export { Recorder     } from './helper/Recorder.js';
+export { Scene        } from './game/Scene.js';
+export { SoundManager } from './helper/SoundManager.js';
+export { Vector2      } from './math/Vector2.js';
 
 const col1 = (opacity) => `rgba( 48, 232, 191, ${opacity})`;
 const col2 = (opacity) => `rgba(255, 130,  53, ${opacity})`;

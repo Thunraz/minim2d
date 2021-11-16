@@ -10,9 +10,9 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "node build.js",
-    "build-minify": "node build.js minify",
-    "dev": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"node build.js watch\" \"serve -l 8080\"",
+    "build": "rollup -c",
+    "build-minify": "env NODE_ENV=production rollup -c",
+    "dev": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c --watch\" \"serve -l 8080\"",
     "start": "npm run dev",
     "lint": "eslint src",
     "test": "jasmine",

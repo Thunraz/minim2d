@@ -1,5 +1,4 @@
 build/
-test/unit/minim2d.*.unit.js
 
 .DS_Store
 *.swp

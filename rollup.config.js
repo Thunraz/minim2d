@@ -1,4 +1,4 @@
-import replace from 'rollup-plugin-replace';
+import replace from '@rollup/plugin-replace';
 import { terser } from 'rollup-plugin-terser';
 // eslint-disable-next-line sort-imports
 import * as pkg from './package.json';
@@ -9,7 +9,7 @@ const builds = [
     {
         input:   'src/Minim2D.js',
         plugins: [
-            replace({ __VERSION__: pkg.version }),
+            replace({ __VERSION__: pkg.version, preventAssignment: true }),
         ],
         output: [
             {
@@ -21,7 +21,7 @@ const builds = [
     {
         input:   'src/Minim2D.js',
         plugins: [
-            replace({ __VERSION__: pkg.version }),
+            replace({ __VERSION__: pkg.version, preventAssignment: true }),
         ],
         output: [
             {
@@ -35,7 +35,7 @@ const builds = [
     {
         input:   'src/Minim2D.js',
         plugins: [
-            replace({ __VERSION__: pkg.version }),
+            replace({ __VERSION__: pkg.version, preventAssignment: true }),
         ],
         output: [
             {
@@ -52,7 +52,7 @@ if (!isDevelopment) {
     builds.push({
         input:   'src/Minim2D.js',
         plugins: [
-            replace({ __VERSION__: pkg.version }),
+            replace({ __VERSION__: pkg.version, preventAssignment: true }),
             terser(),
         ],
         output: [
@@ -67,7 +67,7 @@ if (!isDevelopment) {
     builds.push({
         input:   'src/Minim2D.js',
         plugins: [
-            replace({ __VERSION__: pkg.version }),
+            replace({ __VERSION__: pkg.version, preventAssignment: true }),
             terser(),
         ],
         output: [

@@ -6,12 +6,12 @@ export class Recorder {
      * @param {Number} bitsPerSecond (optional) bit rate of the resulting video,
      *      default is 4000000 (4000 kBit)
      */
-    constructor(canvas, filename, bitsPerSecond) {
+    constructor(canvas, outputName, bitsPerSecond) {
         if (!canvas || !(canvas instanceof HTMLElement)) {
             throw new Error('Parameter canvas has not been supplied or is of the wrong type.');
         }
-        this.canvas        = canvas;
-        this.filename      = filename      || 'output.webm';
+        this.canvas = canvas;
+        this.outputName = outputName || 'output';
         this.bitsPerSecond = bitsPerSecond || null;
         this.isRecording   = false;
     }
@@ -118,13 +118,34 @@ export class Recorder {
         this.isRecording = false;
 
         const blob = new Blob(this.recordedBlobs, { type: this.mimeType });
-        const url  = window.URL.createObjectURL(blob);
+        const url = window.URL.createObjectURL(blob);
+
+        // Create anchor to download the file
+        const anchor = document.createElement('a');
+        anchor.style.display = 'none';
+        anchor.href = url;
+        anchor.download = `${this.outputName}.webm`;
+        document.body.appendChild(anchor);
+        anchor.click();
+
+        // Remove anchor again after a small timeout
+        setTimeout(() => {
+            document.body.removeChild(anchor);
+            window.URL.revokeObjectURL(url);
+        }, 100);
+    }
+
+    /**
+     * Takes a screenshot of the canvas
+     */
+    takeScreenshot() {
+        const url = this.canvas.toDataURL('png');
         
         // Create anchor to download the file
-        const anchor         = document.createElement('a');
+        const anchor = document.createElement('a');
         anchor.style.display = 'none';
-        anchor.href          = url;
-        anchor.download      = this.filename;
+        anchor.href = url;
+        anchor.download = `${this.outputName}.png`;
         document.body.appendChild(anchor);
         anchor.click();
         

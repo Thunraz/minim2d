@@ -8,12 +8,12 @@ export class Recorder {
      */
     constructor(canvas, outputName, bitsPerSecond) {
         if (!canvas || !(canvas instanceof HTMLElement)) {
-            throw new Error('Parameter canvas has not been supplied or is of the wrong type.');
+            throw new Error('Parameter canvas has not been supplied or is of the wrong type');
         }
         this.canvas = canvas;
         this.outputName = outputName || 'output';
         this.bitsPerSecond = bitsPerSecond || null;
-        this.isRecording   = false;
+        this.isRecording = false;
     }
 
     /**
@@ -66,7 +66,7 @@ export class Recorder {
      */
     startRecording() {
         if (this.isRecording) {
-            throw new Error('Already recording! Can\'t start recording.');
+            throw new Error('Already recording! Can\'t start recording');
         }
 
         /* eslint-disable-next-line */
@@ -82,7 +82,7 @@ export class Recorder {
         this.recordedBlobs = [];
 
         const options = {
-            mimeType:           this.mimeType,
+            mimeType: this.mimeType,
             videoBitsPerSecond: this.bitsPerSecond,
         };
 
@@ -104,12 +104,12 @@ export class Recorder {
     }
 
     /**
-     * Stops the current recording
+     * Stops the current recording. Does not download the recording.
      * @returns {void}
      */
     stopRecording() {
         if (!this.isRecording) {
-            throw new Error('Can\'t stop recording, no recording running right now.');
+            throw new Error('Can\'t stop recording, no recording running right now');
         }
 
         /* eslint-disable-next-line */
@@ -140,7 +140,7 @@ export class Recorder {
      */
     takeScreenshot() {
         const url = this.canvas.toDataURL('png');
-        
+
         // Create anchor to download the file
         const anchor = document.createElement('a');
         anchor.style.display = 'none';
@@ -148,7 +148,7 @@ export class Recorder {
         anchor.download = `${this.outputName}.png`;
         document.body.appendChild(anchor);
         anchor.click();
-        
+
         // Remove anchor again after a small timeout
         setTimeout(() => {
             document.body.removeChild(anchor);

@@ -18,7 +18,7 @@ class Square extends Minim2D.Object2D {
 
         this.add(this.bitmap1);
         this.timer = 0.0;
-        
+
         // this.position.x = 150 + Math.cos(this.timer * this.orbitSpeed) * 100;
         // this.position.y = 150 + Math.sin(this.timer * this.orbitSpeed) * 100;
 
@@ -55,6 +55,11 @@ function handleControls(states, camera, game, dt) {
         recorder.toggleRecording();
     }
 
+    if (states.screenshot && states.buttonTimeout <= 0.0) {
+        states.resetButtonTimeout(BUTTON_TIMEOUT);
+        recorder.takeScreenshot();
+    }
+
     if (states.up && !states.down) {
         camera.position.y -= CAMERA_PAN_AMT;
     } else if (states.down && !states.up) {
@@ -76,15 +81,16 @@ function handleControls(states, camera, game, dt) {
 
 (function init() {
     const customKeyCodes = {
-        80:   'record',
-        88:   'blip',
+        KeyX: 'blip',
+        KeyP: 'record',
         KeyQ: 'rotCCW',
         KeyE: 'rotCW',
+        KeyT: 'screenshot'
     };
 
     const camera = new Minim2D.Camera();
-    const game   = new Minim2D.Game(camera, document.getElementById('g'), { customKeyCodes, buttonTimeout: BUTTON_TIMEOUT });
-    const scene  = new Minim2D.Scene();
+    const game = new Minim2D.Game(camera, document.getElementById('g'), { customKeyCodes, buttonTimeout: BUTTON_TIMEOUT });
+    const scene = new Minim2D.Scene();
 
     const soundManager = new Minim2D.SoundManager(game);
     soundManager.loadSound('./assets/blip.wav', 'blip');
@@ -96,7 +102,7 @@ function handleControls(states, camera, game, dt) {
     recorder = new Minim2D.Recorder(game.canvas);
 
     window.addEventListener('handleControls', (e) => handleControls(e.detail.states, camera, game, e.detail.deltaT), false);
-    
+
     const square = new Square(1.0);
     square.position.x = 150;
     square.position.y = 150;

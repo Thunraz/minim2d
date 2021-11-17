@@ -4,7 +4,7 @@ export class Recorder {
      * @param {HTMLElement} canvas The reference to the canvas HTML element
      * @param {String} filename (optional) the output filename (including extension '.webm')
      * @param {Number} bitsPerSecond (optional) bit rate of the resulting video,
-     *      default is 4000000 (4000 kBit)
+     *      default is 18000000 (18000 kBit)
      */
     constructor(canvas, outputName, bitsPerSecond) {
         if (!canvas || !(canvas instanceof HTMLElement)) {

@@ -11,7 +11,7 @@
   "scripts": {
     "build": "rollup -c",
     "build-minify": "env NODE_ENV=production rollup -c",
-    "dev": "concurrently --names \"ESBUILD,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c --watch\" \"serve -l 8080\"",
+    "dev": "concurrently --names \"ROLLUP,HTTP\" -c \"bgBlue.bold,bgGreen.bold\" \"rollup -c --watch\" \"serve -l 8080\"",
     "start": "npm run dev",
     "lint": "eslint src",
     "test": "jest --coverage",

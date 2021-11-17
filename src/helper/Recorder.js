@@ -24,15 +24,15 @@ export class Recorder {
     determineBestType() {
         const bitrate = 18e6;
         const codecs = [
-            { mime: 'video/webm;codecs=vp8,vp9,opus', bitrate },
-            { mime: 'video/webm;codecs=vp9,opus', bitrate },
-            { mime: 'video/webm;codecs=VP8,OPUS', bitrate },
-            { mime: 'video/webm;codecs=vp8,pcm', bitrate },
-            { mime: 'video/webm;codecs=vp8,opus', bitrate },
-            { mime: 'video/webm;codecs=vp9.0', bitrate },
-            { mime: 'video/webm;codecs=vp8.0', bitrate },
-            { mime: 'video/webm;codecs=vp9', bitrate },
-            { mime: 'video/webm;codecs=vp8', bitrate },
+            { mime: 'video/webm;codecs:vp8,vp9,opus', bitrate },
+            { mime: 'video/webm;codecs:vp9,opus', bitrate },
+            { mime: 'video/webm;codecs:VP8,OPUS', bitrate },
+            { mime: 'video/webm;codecs:vp8,pcm', bitrate },
+            { mime: 'video/webm;codecs:vp8,opus', bitrate },
+            { mime: 'video/webm;codecs:vp9.0', bitrate },
+            { mime: 'video/webm;codecs:vp8.0', bitrate },
+            { mime: 'video/webm;codecs:vp9', bitrate },
+            { mime: 'video/webm;codecs:vp8', bitrate },
             { mime: 'video/webm', bitrate },
         ];
 
